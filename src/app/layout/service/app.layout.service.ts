@@ -26,10 +26,10 @@ export class LayoutService {
     _config: AppConfig = {
         ripple: false,
         inputStyle: 'outlined',
-        menuMode: 'static',
+        menuMode: 'overlay',
         colorScheme: 'light',
-        theme: 'lara-light-indigo',
-        scale: 14,
+        theme: 'lara-light-blue',
+        scale: 12,
     };
 
     config = signal<AppConfig>(this._config);

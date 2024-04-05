@@ -11,14 +11,20 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
+import { StepsModule } from 'primeng/steps';
+import { CardModule } from 'primeng/card';
+import { MessageService } from 'primeng/api';
+import { ConsultService } from './pages/page-consult/consult.service';
+
+
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule],
+    imports: [AppRoutingModule, AppLayoutModule,StepsModule,CardModule],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService,ConsultService
     ],
     bootstrap: [AppComponent],
 })
