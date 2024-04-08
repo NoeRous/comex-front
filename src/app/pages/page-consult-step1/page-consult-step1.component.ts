@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { ConsultService } from '../page-consult/consult.service';
 import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
+import { PruebaService } from './prueba.service';
+import { Book } from './prueba';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-page-consult-step1',
   standalone: true,
-  imports: [CardModule],
+  imports: [CardModule,DropdownModule],
   templateUrl: './page-consult-step1.component.html',
   styleUrl: './page-consult-step1.component.scss'
 })
@@ -16,10 +19,13 @@ export class PageConsultStep1Component {
 
   submitted: boolean = false;
 
-  constructor(public ticketService: ConsultService, private router: Router) {}
+  books: Book[] = [];
+
+  constructor(public ticketService: ConsultService, private router: Router, private pruebaService:PruebaService) {}
 
   ngOnInit() {
       this.personalInformation = this.ticketService.getTicketInformation().personalInformation;
+      this.getBooks();
   }
 
   nextPage() {
@@ -31,6 +37,18 @@ export class PageConsultStep1Component {
       }
 
       this.submitted = true;
+  }
+
+  getBooks(): void {
+    this.pruebaService.getBooks().subscribe(
+      (books) => {
+        this.books = books;
+        console.log('books',books)
+      },
+      (error) => {
+        console.error('Error al obtener los empleados:', error);
+      }
+    );
   }
 
 }

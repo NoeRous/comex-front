@@ -13,8 +13,9 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { StepsModule } from 'primeng/steps';
 import { CardModule } from 'primeng/card';
-import { MessageService } from 'primeng/api';
+
 import { ConsultService } from './pages/page-consult/consult.service';
+import { HttpErrorHandler } from './http-error-handler.service';
 
 
 
@@ -24,7 +25,7 @@ import { ConsultService } from './pages/page-consult/consult.service';
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService,ConsultService
+        PhotoService, ProductService,ConsultService, 
     ],
     bootstrap: [AppComponent],
 })
