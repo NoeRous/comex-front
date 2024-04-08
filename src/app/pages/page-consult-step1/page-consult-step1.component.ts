@@ -5,11 +5,12 @@ import { CardModule } from 'primeng/card';
 import { PruebaService } from './prueba.service';
 import { Book } from './prueba';
 import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-page-consult-step1',
   standalone: true,
-  imports: [CardModule,DropdownModule],
+  imports: [CardModule,DropdownModule,ButtonModule],
   templateUrl: './page-consult-step1.component.html',
   styleUrl: './page-consult-step1.component.scss'
 })

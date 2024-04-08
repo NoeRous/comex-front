@@ -1,22 +1,98 @@
 <div class="stepsdemo-content">
     <p-card>
-        <ng-template pTemplate="title"> Seat Information </ng-template>
-        <ng-template pTemplate="subtitle"> Choose your seat </ng-template>
+        <ng-template pTemplate="title"> Paso 2 </ng-template>
+        <ng-template pTemplate="subtitle"> Elija los valores </ng-template>
         <ng-template pTemplate="content">
-            <div class="p-fluid formgrid grid">
-                <div class="field col-12 md:col-6">
-                    <label for="class">Class</label>
-                    <p-dropdown inputId="class" [(ngModel)]="seatInformation.class" [options]="classes" (onChange)="setVagons($event)" optionLabel="name" placeholder="Select a Class"></p-dropdown>
+            <!--<div class="col-12">
+                <div class="card">
+                    <h5>Seccion NANDIA</h5>
+                    <div class="p-fluid p-formgrid grid">
+                       
+                    </div>
                 </div>
-                <div class="field col-12 md:col-6">
-                    <label for="wagon">Wagon</label>
-                    <p-dropdown inputId="wagon" [(ngModel)]="seatInformation.wagon" [options]="vagons" (onChange)="setSeats($event)" optionLabel="wagon" placeholder="Select a Wagon"></p-dropdown>
+                <div class="flex flex-column gap-3">
+                    <div *ngFor="let category of categories" class="field-checkbox">
+                        <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory"></p-radioButton>
+                        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                    </div>
                 </div>
-                <div class="field col-12">
-                    <label for="seat">Seat</label>
-                    <p-dropdown inputId="seat" [(ngModel)]="seatInformation.seat" [options]="seats" optionLabel="seat" placeholder="Select a Seat"></p-dropdown>
+                    <div *ngFor="let category of categories" class="field-checkbox">
+                        <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory"></p-radioButton>
+                        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                    </div>
+                
+            </div> -->
+      
+      
+            <div class="col-12">
+                <div class="card">
+                    <h5>Clasificaciones</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> 
+            <div class="col-12">
+                <div class="card">
+                    <h5>Ubicación Geográfica</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-12">
+                <div class="card">
+                    <h5>Otros</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </ng-template>
         <ng-template pTemplate="footer">
             <div class="grid grid-nogutter justify-content-between">

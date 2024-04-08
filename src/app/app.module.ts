@@ -13,6 +13,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { StepsModule } from 'primeng/steps';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 import { ConsultService } from './pages/page-consult/consult.service';
 import { HttpErrorHandler } from './http-error-handler.service';
@@ -21,7 +22,7 @@ import { HttpErrorHandler } from './http-error-handler.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule,StepsModule,CardModule],
+    imports: [AppRoutingModule, AppLayoutModule,StepsModule,CardModule,ButtonModule],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,

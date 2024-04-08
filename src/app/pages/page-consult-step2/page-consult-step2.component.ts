@@ -2,17 +2,22 @@ import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ConsultService } from '../page-consult/consult.service';
 import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { PruebaService } from '../page-consult-step1/prueba.service';
+import { Book } from '../page-consult-step1/prueba';
 
 @Component({
   selector: 'app-page-consult-step2',
   standalone: true,
-  imports: [CardModule],
+  imports: [CardModule,ButtonModule,DropdownModule,RadioButtonModule],
   templateUrl: './page-consult-step2.component.html',
   styleUrl: './page-consult-step2.component.scss'
 })
 export class PageConsultStep2Component {
 
-  constructor(public ticketService: ConsultService, private router: Router) {}
+  constructor(public ticketService: ConsultService, private router: Router,private pruebaService:PruebaService) {}
 
   classes: any[];
 
@@ -22,9 +27,23 @@ export class PageConsultStep2Component {
 
   seatInformation: any;
 
+  selectedCategory: any = null;
+
+  books: Book[] = [];
+
+  categories: any[] = [
+    { name: 'Accounting', key: 'A' },
+    { name: 'Marketing', key: 'M' },
+    { name: 'Production', key: 'P' },
+    { name: 'Research', key: 'R' }
+];
+
   ngOnInit() {
+
+    this.selectedCategory = this.categories[1];
       this.seatInformation = this.ticketService.ticketInformation.seatInformation;
 
+      this.getBooks();
       this.classes = [
           { name: 'First Class', code: 'A', factor: 1 },
           { name: 'Second Class', code: 'B', factor: 2 },
@@ -32,23 +51,16 @@ export class PageConsultStep2Component {
       ];
   }
 
-  setVagons(event) {
-      if (this.seatInformation.class && event.value) {
-          this.vagons = [];
-          this.seats = [];
-          for (let i = 1; i < 3 * event.value.factor; i++) {
-              this.vagons.push({ wagon: i + event.value.code, type: event.value.name, factor: event.value.factor });
-          }
+  getBooks(): void {
+    this.pruebaService.getBooks().subscribe(
+      (books) => {
+        this.books = books;
+        console.log('books',books)
+      },
+      (error) => {
+        console.error('Error al obtener los empleados:', error);
       }
-  }
-
-  setSeats(event) {
-      if (this.seatInformation.wagon && event.value) {
-          this.seats = [];
-          for (let i = 1; i < 10 * event.value.factor; i++) {
-              this.seats.push({ seat: i, type: event.value.type });
-          }
-      }
+    );
   }
 
   nextPage() {
