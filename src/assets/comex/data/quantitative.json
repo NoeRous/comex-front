@@ -1,0 +1,59 @@
+{
+    "data": [
+    	{
+            "quantitative_id": 1,
+    		"name": "Peso Bruto (Kg.)",
+            "flow_id":1
+    	},
+    	{
+            "quantitative_id": 2,
+    		"name": "Peso Neto (Kg.)",
+            "flow_id":1
+    	},
+    	{
+            "quantitative_id": 3,
+    		"name": "Valor FOB ($us.)",
+            "flow_id":1
+    	},
+        {
+            "quantitative_id": 1,
+    		"name": "Peso Bruto (Kg.)",
+            "flow_id":2
+    	},
+    	{
+            "quantitative_id": 2,
+    		"name": "Peso Neto (Kg.)",
+            "flow_id":2
+    	},
+    	{
+            "quantitative_id": 3,
+    		"name": "Valor FOB ($us.)",
+            "flow_id":2
+    	},
+    	{
+            "quantitative_id": 1,
+    		"name": "Peso Bruto (Kg.)",
+            "flow_id":3
+    	},
+        {
+            "quantitative_id": 2,
+    		"name": "Peso Neto (Kg.)",
+            "flow_id":3
+    	},
+        {
+            "quantitative_id": 3,
+    		"name": "Valor FOB ($us.)",
+            "flow_id":3
+    	},
+        {
+            "quantitative_id": 4,
+    		"name": "Gravamenes Pagados (Bs.)(1)",
+            "flow_id":3
+    	},
+        {
+            "quantitative_id": 5,
+    		"name": "Valor ($us.)",
+            "flow_id":4
+    	}
+    ]
+}

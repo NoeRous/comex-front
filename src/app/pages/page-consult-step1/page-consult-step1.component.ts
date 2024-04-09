@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ConsultService } from '../page-consult/consult.service';
 import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
-import { PruebaService } from './prueba.service';
 import { Book } from './prueba';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { ConsultStep1Service } from './consult-step1.service';
+import { Flow, Quantitative } from './consult-step1';
 
 @Component({
   selector: 'app-page-consult-step1',
@@ -20,13 +21,17 @@ export class PageConsultStep1Component {
 
   submitted: boolean = false;
 
-  books: Book[] = [];
+  flows: Flow[] = [];
 
-  constructor(public ticketService: ConsultService, private router: Router, private pruebaService:PruebaService) {}
+  quantitatives: Quantitative[] = [];
+
+  constructor(public ticketService: ConsultService, private router: Router, private consultStep1Service:ConsultStep1Service) {}
 
   ngOnInit() {
       this.personalInformation = this.ticketService.getTicketInformation().personalInformation;
-      this.getBooks();
+      //this.getBooks();
+      this.getFlows();
+      this.getQuantitatives()
   }
 
   nextPage() {
@@ -36,15 +41,38 @@ export class PageConsultStep1Component {
 
           return;
       }
-
       this.submitted = true;
   }
 
-  getBooks(): void {
+  /*getBooks(): void {
     this.pruebaService.getBooks().subscribe(
       (books) => {
         this.books = books;
         console.log('books',books)
+      },
+      (error) => {
+        console.error('Error al obtener los empleados:', error);
+      }
+    );
+  }*/
+
+  getFlows(): void {
+    this.consultStep1Service.getFlows().then(
+      (flows) => {
+        this.flows = flows;
+        console.log('flows',flows)
+      },
+      (error) => {
+        console.error('Error al obtener los empleados:', error);
+      }
+    );
+  }
+
+  getQuantitatives(): void {
+    this.consultStep1Service.getQuantitatives().then(
+      (quantitatives) => {
+        this.quantitatives = quantitatives;
+        console.log('quantitatives',quantitatives)
       },
       (error) => {
         console.error('Error al obtener los empleados:', error);

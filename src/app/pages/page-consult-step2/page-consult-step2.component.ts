@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { PruebaService } from '../page-consult-step1/prueba.service';
 import { Book } from '../page-consult-step1/prueba';
 
 @Component({
@@ -17,7 +16,7 @@ import { Book } from '../page-consult-step1/prueba';
 })
 export class PageConsultStep2Component {
 
-  constructor(public ticketService: ConsultService, private router: Router,private pruebaService:PruebaService) {}
+  constructor(public ticketService: ConsultService, private router: Router) {}
 
   classes: any[];
 
@@ -42,8 +41,6 @@ export class PageConsultStep2Component {
 
     this.selectedCategory = this.categories[1];
       this.seatInformation = this.ticketService.ticketInformation.seatInformation;
-
-      this.getBooks();
       this.classes = [
           { name: 'First Class', code: 'A', factor: 1 },
           { name: 'Second Class', code: 'B', factor: 2 },
@@ -51,17 +48,7 @@ export class PageConsultStep2Component {
       ];
   }
 
-  getBooks(): void {
-    this.pruebaService.getBooks().subscribe(
-      (books) => {
-        this.books = books;
-        console.log('books',books)
-      },
-      (error) => {
-        console.error('Error al obtener los empleados:', error);
-      }
-    );
-  }
+
 
   nextPage() {
       this.ticketService.ticketInformation.seatInformation = this.seatInformation;
