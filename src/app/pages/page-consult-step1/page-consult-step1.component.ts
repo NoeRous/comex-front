@@ -6,7 +6,8 @@ import { Book } from './prueba';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { ConsultStep1Service } from './consult-step1.service';
-import { Flow, Quantitative } from './consult-step1';
+import { Cuantitativa, Flujo } from './consult-step1';
+
 
 @Component({
   selector: 'app-page-consult-step1',
@@ -21,17 +22,17 @@ export class PageConsultStep1Component {
 
   submitted: boolean = false;
 
-  flows: Flow[] = [];
+  flujos: Flujo[] = [];
 
-  quantitatives: Quantitative[] = [];
+  quantitatives: Cuantitativa[] = [];
 
   constructor(public ticketService: ConsultService, private router: Router, private consultStep1Service:ConsultStep1Service) {}
 
   ngOnInit() {
       this.personalInformation = this.ticketService.getTicketInformation().personalInformation;
       //this.getBooks();
-      this.getFlows();
-      this.getQuantitatives()
+      this.getFlujos();
+     // this.getQuantitatives()
   }
 
   nextPage() {
@@ -56,19 +57,19 @@ export class PageConsultStep1Component {
     );
   }*/
 
-  getFlows(): void {
-    this.consultStep1Service.getFlows().then(
-      (flows) => {
-        this.flows = flows;
-        console.log('flows',flows)
+  getFlujos(): void {
+    this.consultStep1Service.getFlujos().subscribe(
+      (flujos) => {
+        this.flujos = flujos;
+        console.log('flujos',flujos)
       },
       (error) => {
-        console.error('Error al obtener los empleados:', error);
+        console.error('Error al obtener los flujos:', error);
       }
     );
   }
 
-  getQuantitatives(): void {
+  /*getQuantitatives(): void {
     this.consultStep1Service.getQuantitatives().then(
       (quantitatives) => {
         this.quantitatives = quantitatives;
@@ -78,6 +79,6 @@ export class PageConsultStep1Component {
         console.error('Error al obtener los empleados:', error);
       }
     );
-  }
+  }¨*/
 
 }

@@ -1,0 +1,133 @@
+<div class="stepsdemo-content">
+    <p-card>
+        <ng-template pTemplate="title"> Paso 2 </ng-template>
+        <ng-template pTemplate="subtitle"> Elija los valores </ng-template>
+        <ng-template pTemplate="content">
+            <div class="col-12">
+                <div class="card">
+                   <!-- <h5>Seccion NANDIA</h5>-->
+                    <div class="p-fluid p-formgrid grid">
+                        
+                        <div class="col-12">
+                            <div class="card">
+                                <h5>Clasificaciones</h5>
+                                <div class="flex flex-column gap-2">
+                                    <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
+                                        <p-checkbox [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="selectedCualitativas"></p-checkbox>
+                                        <br>
+                                        <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
+                                            <p-checkbox [label]="subCualitativa.des" name="group" [value]="subCualitativa" [(ngModel)]="selectedCualitativas"></p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                         <div class="col-12">
+                            <div class="card">
+                                <h5>Ubicación Geográfica</h5>
+                                <div class="p-fluid p-formgrid grid">
+                                    <div class="field col-12 md:col-3">
+                                        <label htmlFor="address">Flujo de comercio exterior</label>
+                                        <p-dropdown [options]="categories" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                                    </div>
+                                    <div class="field col-12 md:col-3">
+                                        <label htmlFor="city">Varables cuantitativas</label>
+                                        <p-dropdown [options]="categories" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                                    </div>
+                                    <div class="field col-12 md:col-3">
+                                        <label htmlFor="state">Periodicidad</label>
+                                        <p-dropdown [options]="categories" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                                    </div>
+                                    <div class="field col-12 md:col-3">
+                                        <label htmlFor="zip">Año de referencia</label>
+                                        <p-dropdown [options]="categories" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                           
+        
+                    </div>
+                </div>
+            </div>
+      
+      
+            <!--<div class="col-12">
+                <div class="card">
+                    <h5>Clasificaciones</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-12">
+                <div class="card">
+                    <h5>Ubicación Geográfica</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books.books" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-12">
+                <div class="card">
+                    <h5>Otros</h5>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="address">Flujo de comercio exterior</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="city">Varables cuantitativas</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="state">Periodicidad</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label htmlFor="zip">Año de referencia</label>
+                            <p-dropdown [options]="books" [(ngModel)]="categories" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <div class="grid grid-nogutter justify-content-between">
+                <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+                <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+            </div>
+        </ng-template>
+    </p-card>
+</div>

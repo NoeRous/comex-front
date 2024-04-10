@@ -23,15 +23,15 @@ export class PageConsultComponent implements OnInit, OnDestroy {
         this.items = [
             {
                 label: 'Paso 1',
-                routerLink: ['/consult/step1']
+                routerLink: ['/consult/data/step1']
             },
             {
                 label: 'Paso 2',
-                routerLink: ['/consult/step2']
+                routerLink: ['/consult/data/step2']
             },
             {
                 label: 'Paso 3',
-                routerLink: ['/consult/step3']
+                routerLink: ['/consult/data/step3']
             },
         ];
     }

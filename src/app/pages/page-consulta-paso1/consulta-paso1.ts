@@ -8,3 +8,12 @@ export interface Cuantitativa{
     des:string,
     cod_flujo:number
 }
+
+export interface Periodicidad{
+    cod_periodicidad:number,
+    des:string
+}
+
+export interface Gestion{
+    gestion:string
+}

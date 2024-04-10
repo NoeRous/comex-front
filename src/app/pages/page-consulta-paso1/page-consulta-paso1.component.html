@@ -1,6 +1,6 @@
 <div class="stepsdemo-content">
     <p-card>
-        <ng-template pTemplate="title"> Variables </ng-template>
+        <ng-template pTemplate="title">Paso 1 -  Variables </ng-template>
         <ng-template pTemplate="subtitle"> Seleccione las opciones </ng-template>
         
         <ng-template pTemplate="content">
@@ -15,23 +15,22 @@
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="city">Varables cuantitativas</label>
-                            <p-dropdown [options]="quantitatives" [(ngModel)]="quantitatives" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <p-dropdown [options]="cuantitativas.cuantitativas" [(ngModel)]="cuantitativas" optionLabel="des" [showClear]="true" placeholder="Select book"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="state">Periodicidad</label>
-                            <p-dropdown [options]="flows" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <p-dropdown [options]="periodicidad.periodicidad" [(ngModel)]="periodicidad" optionLabel="des" [showClear]="true" placeholder="Select book"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="zip">Año de referencia</label>
-                            <p-dropdown [options]="flows" [(ngModel)]="books" optionLabel="name" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <p-multiSelect [options]="gestiones.gestiones" formControlName="selectedCities" optionLabel="gestion" placeholder="Select Cities"></p-multiSelect>
                         </div>
                     </div>
                 </div>
             </div> 
         </ng-template>
         <ng-template pTemplate="footer">
-            <div class="grid grid-nogutter justify-content-between">
-                <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+            <div class="grid grid-nogutter justify-content-end">
                 <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
             </div>
         </ng-template>

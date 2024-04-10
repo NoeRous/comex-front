@@ -1,23 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable,catchError } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Flujo } from './consult-step1';
+import { Observable } from 'rxjs';
 import { HandleError } from 'src/app/http-error-handler.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConsultStep1Service {
-
-  apiUrl = `${environment.apiURL}/flujos`;
+export class ConsultaPaso2Service {
+  apiUrlCualitativas = `${environment.apiURL}/cualitativas`;
 
   private handleError: HandleError;
 
   constructor(private http: HttpClient) { }
 
-  getFlujos(): Observable<Flujo[]> {
-    return this.http.get<Flujo[]>(this.apiUrl)
+  getCualitativas(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrlCualitativas)
       .pipe(
         //catchError(this.handleError('getFlujos', []))
       );
