@@ -26,7 +26,7 @@ export class PageConsultaComponent {
           },
           {
               label: 'Paso 3',
-              routerLink: ['/consult/data/step3']
+              routerLink: ['/consult/data/paso3']
           },
       ];
   }

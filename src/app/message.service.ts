@@ -58,10 +58,12 @@ export class MessageService {
 
 
   openSnackBar(message: string) {
+    console.log("entra aqui")
    // this._snackBar.open(message, "Cerrar", { duration: 3 * 1000 });
   }
 
   openSnackBarError(message: string) {
+    console.log("entra aqui2")
     //this._snackBar.open(message, "Cerrar", { duration: 3 * 1000, panelClass: ['red-snackbar','blue-snackbar']});
   }
 

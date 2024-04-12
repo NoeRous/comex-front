@@ -4,26 +4,28 @@
         <ng-template pTemplate="subtitle"> Seleccione las opciones </ng-template>
         
         <ng-template pTemplate="content">
-
+       
             <div class="col-12">
+           
                 <div class="card">
                     <h5>Variables</h5>
                     <div class="p-fluid p-formgrid grid">
                         <div class="field col-12 md:col-3">
                             <label htmlFor="address">Flujo de comercio exterior</label>
-                            <p-dropdown [options]="flujos.flujos" [(ngModel)]="flujos" optionLabel="des" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <p-dropdown  [options]="flujos.flujos"  (onChange)="onChangeFlujo($event)" [(ngModel)]="selectedFlujo" optionLabel="des" [showClear]="true" placeholder="Seleccione flujo"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="city">Varables cuantitativas</label>
-                            <p-dropdown [options]="cuantitativas.cuantitativas" [(ngModel)]="cuantitativas" optionLabel="des" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <!--<p-multiSelect [options]="cuantitativas" [(ngModel)]="selectedCuantitativas" formControlName="" optionLabel="des" placeholder="Seleccione v. cuantitativas"></p-multiSelect>-->
+                            <p-multiSelect [options]="cuantitativas" [(ngModel)]="selectedCuantitativas" optionLabel="des" placeholder="Seleccione v. cuantitativas"></p-multiSelect>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="state">Periodicidad</label>
-                            <p-dropdown [options]="periodicidad.periodicidad" [(ngModel)]="periodicidad" optionLabel="des" [showClear]="true" placeholder="Select book"></p-dropdown>
+                            <p-dropdown [options]="periodicidad.periodicidad" [(ngModel)]="selectedPeriocidad" optionLabel="des" [showClear]="true" placeholder="Seleccione periodicidad"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="zip">Año de referencia</label>
-                            <p-multiSelect [options]="gestiones.gestiones" formControlName="selectedCities" optionLabel="gestion" placeholder="Select Cities"></p-multiSelect>
+                            <p-multiSelect [options]="gestiones.gestiones" [(ngModel)]="selectedGestiones" optionLabel="gestion" placeholder="Seleccione año(s)"></p-multiSelect>
                         </div>
                     </div>
                 </div>
@@ -31,7 +33,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
             <div class="grid grid-nogutter justify-content-end">
-                <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                <p-button label="Siguiente" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
             </div>
         </ng-template>
     </p-card>
