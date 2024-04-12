@@ -11,11 +11,14 @@ import { ConsultaPaso2Service } from './consulta-paso2.service';
 import { Continente, Departamento, Medio, Pais, Via } from './consulta-paso2';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-page-consulta-paso2',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,CommonModule,CardModule,ButtonModule,DropdownModule,RadioButtonModule,CheckboxModule,MultiSelectModule],
+  imports: [ReactiveFormsModule,FormsModule,CommonModule,CardModule,ButtonModule,DropdownModule,RadioButtonModule,CheckboxModule,MultiSelectModule,DialogModule,TableModule,InputTextModule],
   templateUrl: './page-consulta-paso2.component.html',
   styleUrl: './page-consulta-paso2.component.scss'
 })
@@ -39,6 +42,10 @@ export class PageConsultaPaso2Component {
 
   vias: Via[] = [];
   selectedVias:Via[] = [];
+
+  displayModal = false;
+
+  
 
   constructor(private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
 
@@ -143,6 +150,13 @@ export class PageConsultaPaso2Component {
     }
   }
 
+  showModal(): void {
+    this.displayModal = true;
+  }
+
+  onDialogHide(): void {
+    // Lógica cuando el modal se cierra
+  }
 
 
 
