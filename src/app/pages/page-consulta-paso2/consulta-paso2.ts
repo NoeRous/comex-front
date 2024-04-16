@@ -18,3 +18,8 @@ export interface Via {
     cod_via:string,
     des:string
 }
+
+export interface CualitativasSub {
+    tipoRes:string,
+    data:any
+}

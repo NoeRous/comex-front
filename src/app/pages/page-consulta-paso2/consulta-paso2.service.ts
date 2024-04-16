@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandleError } from 'src/app/http-error-handler.service';
 import { environment } from 'src/environments/environment';
-import { Continente, Departamento, Medio, Pais, Via } from './consulta-paso2';
+import { Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +53,13 @@ export class ConsultaPaso2Service {
   }
   getVias(): Observable<Via[]> {
     return this.http.get<Via[]>(this.apiUrlVia)
+      .pipe(
+        //catchError(this.handleError('getFlujos', []))
+      );
+  }
+
+  getCualitativasSub(codSub:number): Observable<CualitativasSub> {
+    return this.http.get<CualitativasSub>(this.apiUrlCualitativas+'/sub/'+codSub)
       .pipe(
         //catchError(this.handleError('getFlujos', []))
       );

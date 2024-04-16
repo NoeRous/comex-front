@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router';
 import { ConsultaPaso2Service } from './consulta-paso2.service';
-import { Continente, Departamento, Medio, Pais, Via } from './consulta-paso2';
+import { Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
@@ -42,6 +42,10 @@ export class PageConsultaPaso2Component {
 
   vias: Via[] = [];
   selectedVias:Via[] = [];
+
+  cualitativasSub: CualitativasSub;
+  selectedcualitativasSub:CualitativasSub[] = [];
+  tipoRes:string;
 
   displayModal = false;
 
@@ -130,6 +134,19 @@ export class PageConsultaPaso2Component {
     );
   }
 
+  getCualitativasSub(codSub:number): void {
+    this.consultaPaso2Service.getCualitativasSub(codSub).subscribe(
+      (cualitativasSub) => {
+        this.cualitativasSub = cualitativasSub.data;
+        this.tipoRes = cualitativasSub.tipoRes;
+        console.log('tipoRes',this.tipoRes)
+      },
+      (error) => {
+        console.error('Error al obtener los vias:', error);
+      }
+    );
+  }
+
 
   nextPage(): void {
     // Verifica si todos los campos requeridos están llenos
@@ -150,8 +167,24 @@ export class PageConsultaPaso2Component {
     }
   }
 
-  showModal(): void {
+  calculateCustomerTotal(name: string) {
+    let total = 0;
+
+    if (this.cualitativasSub) {
+        for (let customer of this.cualitativasSub.data) {
+            if (customer.cod_niv2 === name) {
+                total++;
+            }
+        }
+    }
+
+    return total;
+}
+  showModal(subCualitativa:any): void {
+    console.log("subCualitativa",subCualitativa)
+   
     this.displayModal = true;
+    this.getCualitativasSub(subCualitativa.cod_sub)
   }
 
   onDialogHide(): void {
