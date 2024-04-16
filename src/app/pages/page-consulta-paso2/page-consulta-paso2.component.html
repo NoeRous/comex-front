@@ -33,14 +33,14 @@
 
                          <div class="col-12">
                             <div class="card">
-                                <h5>Ubicación Geográfica</h5>
+                                <h5>otros</h5>
                                 <div class="p-fluid p-formgrid grid">
                                
-                                    <div class="field col-12 md:col-4">
+                                    <div *ngIf="departamentos.departamentos" class="field col-12 md:col-4">
                                         <label htmlFor="address">Departamento</label>
                                         <p-multiSelect display="chip" [options]="departamentos.departamentos" [(ngModel)]="selectedDepartamentos" optionLabel="des" placeholder="Seleccione departamento(s)"></p-multiSelect>
                                     </div>
-                                    <div class="field col-12 md:col-4">
+                                    <div *ngIf="continentes.continentes"  class="field col-12 md:col-4">
                                         <label htmlFor="city">Continente</label>
                                         <p-multiSelect display="chip" [options]="continentes.continentes" [(ngModel)]="selectedContinentes" optionLabel="des_continente" placeholder="Seleccione continente(s) "></p-multiSelect>
                                     </div>
@@ -49,25 +49,20 @@
                                         <p-multiSelect display="chip" [options]="paises.paises" [(ngModel)]="selectedPaises" optionLabel="des" placeholder="Seleccione el pais "></p-multiSelect>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="card">
-                                <h5>Otros</h5>
                                 <div class="p-fluid p-formgrid grid">
-                               
-                                    <div class="field col-12 md:col-4">
-                                        <label htmlFor="address">Medio de transporte </label>
-                                        <p-multiSelect display="chip" [options]="medios.medios" [(ngModel)]="selectedMedios" optionLabel="des" placeholder="Seleccione medio(s)"></p-multiSelect>
-                                    </div>
-                                    <div class="field col-12 md:col-4">
-                                        <label htmlFor="city">Via</label>
-                                        <p-multiSelect display="chip" [options]="vias.vias" [(ngModel)]="selectedVias" optionLabel="des" placeholder="Seleccione via(s) "></p-multiSelect>
-                                    </div>
-                                    <div class="field col-12 md:col-4">
-                                    </div>
+                                  <div *ngIf="medios.medios" class="field col-12 md:col-4">
+                                      <label htmlFor="address">Medio de transporte </label>
+                                      <p-multiSelect display="chip" [options]="medios.medios" [(ngModel)]="selectedMedios" optionLabel="des" placeholder="Seleccione medio(s)"></p-multiSelect>
+                                  </div>
+                                  <div *ngIf="vias.vias" class="field col-12 md:col-4">
+                                      <label htmlFor="city">Via</label>
+                                      <p-multiSelect display="chip" [options]="vias.vias" [(ngModel)]="selectedVias" optionLabel="des" placeholder="Seleccione via(s) "></p-multiSelect>
+                                  </div>
+                                  <div *ngIf="aduanas.aduanas" class="field col-12 md:col-4">
+                                    <label htmlFor="city">Aduana de Ingreso</label>
+                                    <p-multiSelect display="chip" [options]="aduanas.aduanas" [(ngModel)]="selectedAduanas" optionLabel="des" placeholder="Seleccione via(s) "></p-multiSelect>
                                 </div>
+                              </div>
                             </div>
                         </div> 
                     </div>

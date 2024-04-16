@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandleError } from 'src/app/http-error-handler.service';
 import { environment } from 'src/environments/environment';
-import { Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
+import { Aduana, Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,14 @@ export class ConsultaPaso2Service {
   apiUrlPais = `${environment.apiURL}/pais`;
   apiUrlMedio = `${environment.apiURL}/medios`;
   apiUrlVia = `${environment.apiURL}/vias`;
+  apiUrlAduanas = `${environment.apiURL}/aduanas`;
 
   private handleError: HandleError;
 
   constructor(private http: HttpClient) { }
 
-  getCualitativas(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlCualitativas)
+  getMenuCualitativas(codFlujo:number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrlCualitativas+'/flujo/'+codFlujo)
       .pipe(
         //catchError(this.handleError('getFlujos', []))
       );
@@ -53,6 +54,13 @@ export class ConsultaPaso2Service {
   }
   getVias(): Observable<Via[]> {
     return this.http.get<Via[]>(this.apiUrlVia)
+      .pipe(
+        //catchError(this.handleError('getFlujos', []))
+      );
+  }
+
+  getAduanas(): Observable<Aduana[]> {
+    return this.http.get<Aduana[]>(this.apiUrlAduanas)
       .pipe(
         //catchError(this.handleError('getFlujos', []))
       );

@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router';
 import { ConsultaPaso2Service } from './consulta-paso2.service';
-import { Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
+import { Aduana, Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
@@ -43,6 +43,9 @@ export class PageConsultaPaso2Component {
   vias: Via[] = [];
   selectedVias:Via[] = [];
 
+  aduanas: Aduana[] = [];
+  selectedAduanas:Aduana[] = [];
+
   cualitativasSub: CualitativasSub;
   selectedcualitativasSub:CualitativasSub[] = [];
   tipoRes:string;
@@ -54,16 +57,11 @@ export class PageConsultaPaso2Component {
   constructor(private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
 
   ngOnInit() {
-    this.getCualitativas();
-    this.getDepartamentos();
-    this.getContinentes();
-    this.getPaises();
-    this.getMedios();
-    this.getVias();
+    this.getServices(4);
 }
 
-  getCualitativas(): void {
-    this.consultaPaso2Service.getCualitativas().subscribe(
+  getMenuCualitativas(cod_flujo): void {
+    this.consultaPaso2Service.getMenuCualitativas(cod_flujo).subscribe(
       (cualitativas) => {
         this.cualitativas = cualitativas;
         console.log('cualitativas',cualitativas)
@@ -74,10 +72,46 @@ export class PageConsultaPaso2Component {
     );
   }
 
+  
+  getServices(cod_flujo:number): void {
+    if(cod_flujo==1){//export
+      this.getMenuCualitativas(cod_flujo);
+      this.getDepartamentos();
+      this.getContinentes();
+      this.getPaises();
+      this.getMedios();
+      this.getVias();
+    }else if(cod_flujo==2){//reexport
+      this.getMenuCualitativas(cod_flujo);
+      this.getDepartamentos();
+      this.getContinentes();
+      this.getPaises();
+      this.getMedios();
+      this.getVias();
+    }else if(cod_flujo==3){//import
+      this.getMenuCualitativas(cod_flujo);
+      this.getDepartamentos();
+      this.getContinentes();
+      this.getPaises();
+      this.getMedios();
+      this.getVias();
+      this.getAduanas();
+      //aqui adicionar Aduana de Ingreso
+    }else if(cod_flujo==4){
+      this.getMenuCualitativas(cod_flujo);
+      this.getContinentes();
+      this.getPaises();
+    }else{
+
+    }
+  
+  }
+
   getDepartamentos(): void {
     this.consultaPaso2Service.getDepartamentos().subscribe(
       (departamentos) => {
         this.departamentos = departamentos;
+
         console.log('departamentos',departamentos)
       },
       (error) => {
@@ -101,8 +135,9 @@ export class PageConsultaPaso2Component {
   getContinentes(): void {
     this.consultaPaso2Service.getContinentes().subscribe(
       (continentes) => {
+        console.log('continentesaaa',continentes);
         this.continentes = continentes;
-        console.log('continentes',continentes)
+        console.log('continentes',this.continentes)
       },
       (error) => {
         console.error('Error al obtener los continentes:', error);
@@ -110,7 +145,7 @@ export class PageConsultaPaso2Component {
     );
   }
 
-  getMedios(): void {
+ getMedios(): void {
     this.consultaPaso2Service.getMedios().subscribe(
       (medios) => {
         this.medios = medios;
@@ -127,6 +162,18 @@ export class PageConsultaPaso2Component {
       (vias) => {
         this.vias = vias;
         console.log('vias',vias)
+      },
+      (error) => {
+        console.error('Error al obtener los vias:', error);
+      }
+    );
+  }
+
+  getAduanas(): void {
+    this.consultaPaso2Service.getAduanas().subscribe(
+      (aduanas) => {
+        this.aduanas = aduanas;
+        console.log('aduanas',aduanas)
       },
       (error) => {
         console.error('Error al obtener los vias:', error);

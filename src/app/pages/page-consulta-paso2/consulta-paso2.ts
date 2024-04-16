@@ -19,6 +19,11 @@ export interface Via {
     des:string
 }
 
+export interface Aduana {
+    cod_aduana:string,
+    des:string
+}
+
 export interface CualitativasSub {
     tipoRes:string,
     data:any
