@@ -14,7 +14,6 @@ import { PhotoService } from './demo/service/photo.service';
 import { StepsModule } from 'primeng/steps';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-
 import { ConsultService } from './pages/page-consult/consult.service';
 import { HttpErrorHandler } from './http-error-handler.service';
 

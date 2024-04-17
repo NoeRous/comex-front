@@ -4,7 +4,7 @@
         <ng-template pTemplate="subtitle"> Elija los valores </ng-template>
         <ng-template pTemplate="content">
             <div class="col-12">
-            
+              <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
                    <!-- <h5>Seccion NANDIA</h5>-->
                     <div class="p-fluid p-formgrid grid">
                           <div class="col-12">
@@ -84,12 +84,11 @@
 <div>
     <p-dialog header="Datos de clasificaciones" [(visible)]="displayModal" [modal]="true" [responsive]="true" [maximizable]="true"[style]="{ width: '80vw', height: '700px' }" (onHide)="onDialogHide()">
         <div class="card">
-          <p-table  *ngIf="tipoRes=='listado'" #dt1 [value]="cualitativasSub" [(selection)]="selectedcualitativasSub" dataKey="code" [tableStyle]="{'min-width': '80rem'}"
+          <p-table  *ngIf="tipoRes=='listado'" #dt1 [value]="cualitativasSub" [(selection)]="selectedcualitativasSub" dataKey="cod_niv1" [tableStyle]="{'min-width': '80rem'}"
           [globalFilterFields]="['cod_niv1', 'des_niv1']"
           >
-            <ng-template pTemplate="caption">
+          <ng-template pTemplate="caption">
               <div class="flex">
-                  
                   <span class="p-input-icon-left ml-auto">
                       <i class="pi pi-search"></i>
                       <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda..." />
@@ -122,8 +121,31 @@
               </tr>
           </ng-template>
         </p-table>
-
-        <p-table *ngIf="tipoRes!='listado'" [value]="cualitativasSub" sortField="cod_niv2" sortMode="single" [scrollable]="false" scrollHeight="500px" rowGroupMode="subheader" groupRowsBy="cod_niv2" [tableStyle]="{'min-width': '80rem'}">
+<!--Tipo de tabla 2-->
+        <p-table *ngIf="tipoRes!='listado'" 
+        #dt2
+        [value]="cualitativasSub" 
+        sortField="cod_niv1" 
+        sortMode="single" 
+        [scrollable]="false" 
+        scrollHeight="400px" 
+        rowGroupMode="subheader" 
+        groupRowsBy="cod_niv2" 
+        [tableStyle]="{'min-width': '80rem'}"
+        [globalFilterFields]="['des_niv4','des_niv3','des_niv2','cod_niv1', 'des_niv1']">
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                placeholder="Busqueda..."
+              />
+            </span>
+          </div>
+        </ng-template>
           <ng-template pTemplate="header">
               <tr>
                   <th></th>
@@ -175,98 +197,10 @@
               </tr>
           </ng-template>
       </p-table>
-      
-
-            <!--<p-table
-              #dt2
-              [value]="'cualitativasSub.data'"
-              sortField="cualitativasSub.name"
-              sortMode="single"
-              dataKey="representative.name"
-              rowGroupMode="subheader"
-              groupRowsBy="representative.name"
-              [tableStyle]="{'min-width': '70rem'}"
-              [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            >
-              <ng-template pTemplate="caption">
-                <div class="flex">
-                  <span class="p-input-icon-left ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input
-                      pInputText
-                      type="text"
-                      (input)="dt2.filterGlobal($event.target.value, 'contains')"
-                      placeholder="Busqueda..."
-                    />
-                  </span>
-                </div>
-              </ng-template>
-              <ng-template pTemplate="header">
-                <tr>
-                  <th style="width: 20%"></th>
-                  <th style="width: 20%">Código</th>
-                  <th style="width: 20%">Descripción</th>
-                </tr>
-              </ng-template>
-              <ng-template
-                pTemplate="groupheader"
-                let-customer
-                let-rowIndex="rowIndex"
-                let-expanded="expanded"
-              >
-                <tr>
-                  <td colspan="5">
-                    <button
-                      type="button"
-                      pButton
-                      pRipple
-                      [pRowToggler]="customer"
-                      class="p-button-text p-button-rounded p-button-plain mr-2"
-                      [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-                    ></button>
-                    <img
-                      [alt]="customer.representative.name"
-                      src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                      width="32"
-                      style="vertical-align: middle"
-                    />
-                    <span class="font-bold ml-2">{{customer.representative.name}}</span>
-                  </td>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="groupfooter" let-customer>
-                <tr class="p-rowgroup-footer">
-                  <td colspan="4" style="text-align: right">Total Customers</td>
-                  <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="rowexpansion" let-customer>
-                <tr>
-                  <td>{{customer.name}}</td>
-                  <td>
-                    <img
-                      src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                      [class]="'flag flag-' + customer.country.code"
-                      style="width: 20px"
-                    />
-                    <span class="ml-1 vertical-align-middle"
-                      >{{customer.cod_departamento}}</span
-                    >
-                  </td>
-                  <td>{{customer.company}}</td>
-                  <td>
-                    <p-tag
-                      [value]="customer.status"
-                      [severity]="getSeverity(customer.status)"
-                    ></p-tag>
-                  </td>
-                  <td>{{customer.date}}</td>
-                </tr>
-              </ng-template>
-            </p-table>-->
+<!-- Fin Tipo de tabla 2-->
           </div>
           <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="onDialogHide()"></button>
             <button pButton pRipple label="Seleccionar"  severity="success"  icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
           </ng-template>
     </p-dialog>

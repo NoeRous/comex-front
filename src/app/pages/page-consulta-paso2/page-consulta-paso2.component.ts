@@ -6,7 +6,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '@angular/common'
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ConsultaPaso2Service } from './consulta-paso2.service';
 import { Aduana, Continente, CualitativasSub, Departamento, Medio, Pais, Via } from './consulta-paso2';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -14,11 +14,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { Message } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-page-consulta-paso2',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,CommonModule,CardModule,ButtonModule,DropdownModule,RadioButtonModule,CheckboxModule,MultiSelectModule,DialogModule,TableModule,InputTextModule],
+  imports: [MessageModule,MessagesModule,ReactiveFormsModule,FormsModule,CommonModule,CardModule,ButtonModule,DropdownModule,RadioButtonModule,CheckboxModule,MultiSelectModule,DialogModule,TableModule,InputTextModule],
   templateUrl: './page-consulta-paso2.component.html',
   styleUrl: './page-consulta-paso2.component.scss'
 })
@@ -27,52 +30,49 @@ export class PageConsultaPaso2Component {
   selectedCualitativas: any[] = [];
   selectedSubCualitativas: any[] = [];
   cualitativas: any[] = [];
-
   departamentos: Departamento[] = [];
   selectedDepartamentos:Departamento[] = [];
-
   paises: Pais[] = [];
   selectedPaises:Pais[] = [];
-
   continentes: Continente[] = [];
   selectedContinentes:Continente[] = [];
-
   medios: Medio[] = [];
   selectedMedios:Medio[] = [];
-
   vias: Via[] = [];
   selectedVias:Via[] = [];
-
   aduanas: Aduana[] = [];
   selectedAduanas:Aduana[] = [];
-
   cualitativasSub: CualitativasSub;
   selectedcualitativasSub:CualitativasSub[] = [];
   tipoRes:string;
-
   displayModal = false;
-
+  codFlujo:string;
+  messages: Message[] | undefined;
+  detailMesage1 = 'En el caso de Exportaciones, la información hasta el año 1999 corresponde al Departamento de Residencia del Exportador, consignado en la Declaración Unidad de Exportación (DUE). A partir del año 2000 los datos corresponden al Departamento de Origen del Producto exportado. En el caso de Importaciones, la información corresponde al Departamento según la aduana donde se realizó el trámite de nacionalización del producto importado.';
+  detailMesage2 = 'Debido a que cada una de las clasificaciones estadísticas responde a diferentes criterios de clasificación y agregación, no puede realizar el cruce simultáneo entre dos o más de estos clasificadores:   - Clasificador Uniforme del Comercio Internacional (CUCI Rev.3)  - Clasificador Internacional Industrial Uniforme (CIIU Rev.3)   - Clasificador de Grandes Categorías Económicas (GCE Rev.3)   - Clasificador por Actividad Económica y Principales Productos (Disponible solo para Exportaciones)  - Clasificador por Productos Tradicionales y No Tradicionales (Disponible solo para Exportaciones)   - Clasificador por Uso o Destino Económico (CUODE) (Disponible solo para Importaciones)';
   
-
-  constructor(private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
+  constructor(private route: ActivatedRoute,private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
 
   ngOnInit() {
-    this.getServices(4);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.codFlujo = params.get('codFlujo');
+      this.getServices(parseInt(this.codFlujo));
+    });
+    this.messages = [{ severity: 'info', summary: 'Departamento: ', detail: this.detailMesage1 },
+    { severity: 'info', summary: 'Clasificadores: ', detail: this.detailMesage2 }
+    ];
 }
 
   getMenuCualitativas(cod_flujo): void {
     this.consultaPaso2Service.getMenuCualitativas(cod_flujo).subscribe(
       (cualitativas) => {
         this.cualitativas = cualitativas;
-        console.log('cualitativas',cualitativas)
       },
       (error) => {
         console.error('Error al obtener los cualitativas:', error);
       }
     );
   }
-
-  
   getServices(cod_flujo:number): void {
     if(cod_flujo==1){//export
       this.getMenuCualitativas(cod_flujo);
@@ -96,8 +96,7 @@ export class PageConsultaPaso2Component {
       this.getMedios();
       this.getVias();
       this.getAduanas();
-      //aqui adicionar Aduana de Ingreso
-    }else if(cod_flujo==4){
+    }else if(cod_flujo==4){//saldo
       this.getMenuCualitativas(cod_flujo);
       this.getContinentes();
       this.getPaises();
@@ -111,8 +110,6 @@ export class PageConsultaPaso2Component {
     this.consultaPaso2Service.getDepartamentos().subscribe(
       (departamentos) => {
         this.departamentos = departamentos;
-
-        console.log('departamentos',departamentos)
       },
       (error) => {
         console.error('Error al obtener los departamentos:', error);
@@ -124,7 +121,6 @@ export class PageConsultaPaso2Component {
     this.consultaPaso2Service.getPaises().subscribe(
       (paises) => {
         this.paises = paises;
-        console.log('paises',paises)
       },
       (error) => {
         console.error('Error al obtener los paises:', error);
@@ -135,9 +131,7 @@ export class PageConsultaPaso2Component {
   getContinentes(): void {
     this.consultaPaso2Service.getContinentes().subscribe(
       (continentes) => {
-        console.log('continentesaaa',continentes);
         this.continentes = continentes;
-        console.log('continentes',this.continentes)
       },
       (error) => {
         console.error('Error al obtener los continentes:', error);
@@ -149,7 +143,6 @@ export class PageConsultaPaso2Component {
     this.consultaPaso2Service.getMedios().subscribe(
       (medios) => {
         this.medios = medios;
-        console.log('medios',medios)
       },
       (error) => {
         console.error('Error al obtener los medios:', error);
@@ -161,7 +154,6 @@ export class PageConsultaPaso2Component {
     this.consultaPaso2Service.getVias().subscribe(
       (vias) => {
         this.vias = vias;
-        console.log('vias',vias)
       },
       (error) => {
         console.error('Error al obtener los vias:', error);
@@ -173,7 +165,6 @@ export class PageConsultaPaso2Component {
     this.consultaPaso2Service.getAduanas().subscribe(
       (aduanas) => {
         this.aduanas = aduanas;
-        console.log('aduanas',aduanas)
       },
       (error) => {
         console.error('Error al obtener los vias:', error);
@@ -186,7 +177,6 @@ export class PageConsultaPaso2Component {
       (cualitativasSub) => {
         this.cualitativasSub = cualitativasSub.data;
         this.tipoRes = cualitativasSub.tipoRes;
-        console.log('tipoRes',this.tipoRes)
       },
       (error) => {
         console.error('Error al obtener los vias:', error);
@@ -196,27 +186,19 @@ export class PageConsultaPaso2Component {
 
 
   nextPage(): void {
-    // Verifica si todos los campos requeridos están llenos
       this.router.navigate(['/consult/data/paso3']);
-   
   }
 
   prevPage(): void {
-    // Verifica si todos los campos requeridos están llenos
     if (true) {
-
-      console.log('Todos los campos están llenos. Pasando a la siguiente página...');
       this.router.navigate(['/consult/data/paso1']);
     } else {
-
       console.error('No todos los campos están llenos. Por favor, complete todos los campos requeridos.');
-
     }
   }
 
   calculateCustomerTotal(name: string) {
     let total = 0;
-
     if (this.cualitativasSub) {
         for (let customer of this.cualitativasSub.data) {
             if (customer.cod_niv2 === name) {
@@ -224,20 +206,15 @@ export class PageConsultaPaso2Component {
             }
         }
     }
-
     return total;
 }
   showModal(subCualitativa:any): void {
-    console.log("subCualitativa",subCualitativa)
-   
+    //this.cualitativasSub.data;
     this.displayModal = true;
     this.getCualitativasSub(subCualitativa.cod_sub)
   }
 
   onDialogHide(): void {
-    // Lógica cuando el modal se cierra
+    this.displayModal = false;
   }
-
-
-
 }
