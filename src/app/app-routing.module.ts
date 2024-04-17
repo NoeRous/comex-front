@@ -34,7 +34,7 @@ import { PageConsultaPaso3Component } from './pages/page-consulta-paso3/page-con
                 children: [
                     { path: 'data',component: PageConsultaComponent, children: [
                         { path: 'paso1',component: PageConsultaPaso1Component },
-                        { path: 'paso2/flujo/:codFlujo',component: PageConsultaPaso2Component },
+                        { path: 'paso2',component: PageConsultaPaso2Component },
                         { path: 'paso3',component: PageConsultaPaso3Component },
                         { path: '', redirectTo: 'paso1', pathMatch: 'full' },
                     ] },

@@ -4,18 +4,36 @@ import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ConsultaPaso3Service } from './consulta-paso3.service';
 import { ButtonModule } from 'primeng/button';
+import { InformacionService } from '../page-consulta/informacion.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-page-consulta-paso3',
   standalone: true,
-  imports: [CardModule,ReactiveFormsModule,FormsModule,ButtonModule],
+  imports: [CardModule,ReactiveFormsModule,FormsModule,ButtonModule,CommonModule],
   templateUrl: './page-consulta-paso3.component.html',
   styleUrl: './page-consulta-paso3.component.scss'
 })
 export class PageConsultaPaso3Component {
+  informacion: any;
 
+  flujo:string;
+  varCuantitativas:string;
 
-  constructor(private router: Router, private consultaPaso3Service:ConsultaPaso3Service) {}
+  constructor(private router: Router, private consultaPaso3Service:ConsultaPaso3Service,public ticketService: InformacionService) {}
+
+  ngOnInit() {
+    this.informacion = this.ticketService.informacion;
+    if(this.informacion.paso1Informacion.selectedFlujo && this.informacion.paso2Informacion ){
+      console.log('informacion',this.informacion)
+      this.flujo = this.informacion.paso1Informacion.selectedFlujo;
+      this.varCuantitativas = this.informacion.paso1Informacion.selectedCuantitativas;
+     
+    }else{
+      this.prevPage();
+    }
+}
+
 
   prevPage(): void {
       console.log('Todos los campos están llenos. Pasando a la siguiente página...');
@@ -23,6 +41,11 @@ export class PageConsultaPaso3Component {
   }
   confirmationPage(): void {
     console.log('Aqui genera.........');
-}
+    this.ticketService.complete();
+  }
+
+  complete() {
+    this.ticketService.complete();
+  }
 
 }

@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { InformacionService } from '../page-consulta/informacion.service';
 
 
 @Component({
@@ -33,11 +34,18 @@ export class PageConsultaPaso1Component {
   selectedPeriocidad: Periodicidad;
   gestiones: Gestion[] = [];
   selectedGestiones: Gestion[] = [];
+  paso1Information: any;
+  submitted: boolean = false;
 
 
-  constructor(private router: Router,private fb: FormBuilder, private consultaPaso1Service:ConsultaPaso1Service,private messageService: MessageService) {}
+  constructor(public ticketService: InformacionService,private router: Router,private fb: FormBuilder, private consultaPaso1Service:ConsultaPaso1Service,private messageService: MessageService) {}
 
   ngOnInit() {
+    this.paso1Information = this.ticketService.getInformacion().paso1Informacion;
+    if(this.paso1Information.selectedFlujo){
+      this.loadFlujo(this.paso1Information.selectedFlujo);
+    }
+    
     this.getFlujos();
     //this.getVarCuantitativas();
     this.getPeriodicidad();
@@ -48,7 +56,7 @@ export class PageConsultaPaso1Component {
     this.consultaPaso1Service.getFlujos().subscribe(
       (flujos) => {
         this.flujos = flujos;
-        console.log('flujos',flujos)
+        //console.log('flujos',flujos)
       },
       (error) => {
         
@@ -60,7 +68,6 @@ export class PageConsultaPaso1Component {
   getVarCuantitativas(cod_flujo: number): void {
     this.consultaPaso1Service.getVarCuantitativas().pipe(
       map((cuantitativas: any) => {
-        // Filtrar las cuantitativas basadas en el código de flujo
         return cuantitativas.cuantitativas.filter(item => item.cod_flujo === cod_flujo);
       })
     ).subscribe(
@@ -96,24 +103,33 @@ export class PageConsultaPaso1Component {
   }
 
   onChangeFlujo(item: any) {
-
-    if(item.value){
-      console.log('item --->', item.value.cod_flujo)
+   if(item.value){
       this.selectedCuantitativas = [];
+      this.ticketService.clearInformacion();
+      this.paso1Information = this.ticketService.getInformacion().paso1Informacion;
       this.getVarCuantitativas(item.value.cod_flujo)
+      
+    }
+  }
+
+  loadFlujo(item: any) {
+    if(item){
+      this.selectedCuantitativas = [];
+      this.getVarCuantitativas(item.cod_flujo)
     }
   }
 
   nextPage(): void {
     if (this.camposLlenos()) {
-      this.router.navigate(['/consult/data/paso2/flujo', this.selectedFlujo.cod_flujo]);
+      this.ticketService.informacion.paso1Informacion = this.paso1Information;
+      this.router.navigate(['/consult/data/paso2']);
     } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No todos los campos están llenos. Por favor, complete todos los campos requeridos.' });
     }
   }
   
   private camposLlenos(): boolean {
-    if (this.selectedFlujo && this.selectedCuantitativas.length > 0 && this.selectedPeriocidad && this.selectedGestiones.length > 0 ) {
+    if (this.paso1Information.selectedFlujo && this.paso1Information.selectedCuantitativas.length > 0 && this.paso1Information.selectedPeriocidad && this.paso1Information.selectedGestiones.length > 0 ) {
       return true; // Todos los campos requeridos están llenos
     } else {
       return false; // Al menos uno de los campos requeridos está vacío

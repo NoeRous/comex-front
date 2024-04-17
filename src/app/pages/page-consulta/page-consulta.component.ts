@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem,MessageService } from 'primeng/api';
 import { StepsModule } from 'primeng/steps';
+import { Subscription } from 'rxjs';
+import { InformacionService } from './informacion.service';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-page-consulta',
   standalone: true,
-  imports: [StepsModule],
+  imports: [MessageModule,MessagesModule,StepsModule],
   templateUrl: './page-consulta.component.html',
-  styleUrl: './page-consulta.component.scss'
+  styleUrl: './page-consulta.component.scss',
+  providers: [MessageService,InformacionService]
 })
 export class PageConsultaComponent {
   items: MenuItem[];
 
-  constructor() {}
+  subscription: Subscription;
+
+  constructor(public messageService: MessageService, public ticketService: InformacionService) {}
 
   ngOnInit() {
       this.items = [
@@ -29,10 +36,16 @@ export class PageConsultaComponent {
               routerLink: ['/consult/data/paso3']
           },
       ];
+
+      this.subscription = this.ticketService.informacionComplete$.subscribe((paso1Informacion) => {
+        this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + paso1Informacion.selectedFlujo.des + ' your order completed.' });
+    });
   }
 
   ngOnDestroy() {
-      
+    if (this.subscription) {
+        this.subscription.unsubscribe();
+    } 
   }
 
 }

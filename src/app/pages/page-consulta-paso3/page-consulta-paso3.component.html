@@ -1,11 +1,25 @@
 <div class="stepsdemo-content">
     <p-card>
-        <ng-template pTemplate="title"> Confirmation </ng-template>
-        <ng-template pTemplate="subtitle"> Enter your card details </ng-template>
+        <ng-template pTemplate="title">Confirmación </ng-template>
+        <ng-template pTemplate="subtitle"> Detalle de la consulta </ng-template>
         <ng-template pTemplate="content">
             <div class="field col-12">
-                <label for="class">Name</label>
+                <label for="class">Flujo de Comercio Exterior</label>
+                <br>
+                <b>{{ flujo ? flujo.des: '-' }}</b>
                
+            </div>
+            <div class="field col-12">
+                <label for="class">Variables Cuantitativas</label>
+                <br>
+                <ng-container *ngFor="let varCuantitativa of varCuantitativas">
+                    <b>{{ varCuantitativa ? varCuantitativa.des : '-' }}</b>
+                    <br>
+                </ng-container>
+            </div>
+            
+            <div class="field col-12">
+                <label for="class">Variables Cualitativas</label>
             </div>
         </ng-template>
         <ng-template pTemplate="footer">

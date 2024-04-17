@@ -17,6 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { InformacionService } from '../page-consulta/informacion.service';
 
 @Component({
   selector: 'app-page-consulta-paso2',
@@ -26,6 +27,8 @@ import { MessagesModule } from 'primeng/messages';
   styleUrl: './page-consulta-paso2.component.scss'
 })
 export class PageConsultaPaso2Component {
+  paso1Informacion: any;
+  paso2Informacion: any;
 
   selectedCualitativas: any[] = [];
   selectedSubCualitativas: any[] = [];
@@ -51,13 +54,21 @@ export class PageConsultaPaso2Component {
   detailMesage1 = 'En el caso de Exportaciones, la información hasta el año 1999 corresponde al Departamento de Residencia del Exportador, consignado en la Declaración Unidad de Exportación (DUE). A partir del año 2000 los datos corresponden al Departamento de Origen del Producto exportado. En el caso de Importaciones, la información corresponde al Departamento según la aduana donde se realizó el trámite de nacionalización del producto importado.';
   detailMesage2 = 'Debido a que cada una de las clasificaciones estadísticas responde a diferentes criterios de clasificación y agregación, no puede realizar el cruce simultáneo entre dos o más de estos clasificadores:   - Clasificador Uniforme del Comercio Internacional (CUCI Rev.3)  - Clasificador Internacional Industrial Uniforme (CIIU Rev.3)   - Clasificador de Grandes Categorías Económicas (GCE Rev.3)   - Clasificador por Actividad Económica y Principales Productos (Disponible solo para Exportaciones)  - Clasificador por Productos Tradicionales y No Tradicionales (Disponible solo para Exportaciones)   - Clasificador por Uso o Destino Económico (CUODE) (Disponible solo para Importaciones)';
   
-  constructor(private route: ActivatedRoute,private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
+  constructor(public ticketService: InformacionService,private route: ActivatedRoute,private router: Router, private consultaPaso2Service:ConsultaPaso2Service) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.codFlujo = params.get('codFlujo');
-      this.getServices(parseInt(this.codFlujo));
-    });
+    this.paso1Informacion = this.ticketService.informacion.paso1Informacion;
+    this.paso2Informacion = this.ticketService.informacion.paso2Informacion;
+    console.log('this.paso2Informacion',this.paso2Informacion);
+    if(this.paso1Informacion.selectedFlujo){
+      if(this.paso1Informacion.selectedFlujo){
+        this.codFlujo = this.paso1Informacion.selectedFlujo.cod_flujo;
+        this.getServices(parseInt(this.codFlujo));
+      }
+    }else{
+      this.prevPage();
+    }
+
     this.messages = [{ severity: 'info', summary: 'Departamento: ', detail: this.detailMesage1 },
     { severity: 'info', summary: 'Clasificadores: ', detail: this.detailMesage2 }
     ];
@@ -186,6 +197,7 @@ export class PageConsultaPaso2Component {
 
 
   nextPage(): void {
+    this.ticketService.informacion.paso2Informacion = this.paso2Informacion;
       this.router.navigate(['/consult/data/paso3']);
   }
 
