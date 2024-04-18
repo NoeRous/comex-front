@@ -7,6 +7,7 @@ import { PageConsultaComponent } from './pages/page-consulta/page-consulta.compo
 import { PageConsultaPaso1Component } from './pages/page-consulta-paso1/page-consulta-paso1.component';
 import { PageConsultaPaso2Component } from './pages/page-consulta-paso2/page-consulta-paso2.component';
 import { PageConsultaPaso3Component } from './pages/page-consulta-paso3/page-consulta-paso3.component';
+import { PageResultadoComponent } from './pages/page-resultado/page-resultado.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PageConsultaPaso3Component } from './pages/page-consulta-paso3/page-con
                         { path: 'paso3',component: PageConsultaPaso3Component },
                         { path: '', redirectTo: 'paso1', pathMatch: 'full' },
                     ] },
+                    {path: 'resultado',component: PageResultadoComponent}
                 ]
             },
 

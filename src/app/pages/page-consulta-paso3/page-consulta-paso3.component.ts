@@ -42,10 +42,12 @@ export class PageConsultaPaso3Component {
   confirmationPage(): void {
     console.log('Aqui genera.........');
     this.ticketService.complete();
+    this.router.navigate(['/consult/resultado']);
   }
 
   complete() {
     this.ticketService.complete();
+    
   }
 
 }
