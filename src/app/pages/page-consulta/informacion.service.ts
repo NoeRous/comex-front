@@ -11,8 +11,20 @@ import { Subject } from 'rxjs';
                 selectedGestiones: [],
             },
             paso2Informacion: {
-                selectedNandina: null,
-                selectedClasificacion: null,
+                selectedNandina: {
+                    cod_clas : null,
+                    des:null,
+                    selectedSubCualitativas:{
+                        cod_sub:null,
+                        des:null,
+                        sub_children:[]
+                    }
+                },
+                selectedClasificacion:  {
+                    cod_clas : null,
+                    des:null,
+                    selectedSubCualitativas:[]
+                },
                 selectedDepartamentos: [],
                 selectedContinentes: [],
                 selectedPaises: [],
@@ -52,6 +64,15 @@ import { Subject } from 'rxjs';
             return this.informacion;
         }
     
+        clearInformacion2SelectedClasificacion() {
+            this.informacion.paso2Informacion.selectedClasificacion = {
+                cod_clas : null,
+                des:null,
+                selectedSubCualitativas:[]
+            };
+            return this.informacion;
+        }
+
         setInformacion(informacion) {
             this.informacion = informacion;
         }

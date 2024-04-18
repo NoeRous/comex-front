@@ -21,11 +21,19 @@ export class ConsultaPaso2Service {
   constructor(private http: HttpClient) { }
 
   getMenuCualitativas(codFlujo:number): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlCualitativas+'/flujo/'+codFlujo)
+    return this.http.get<any[]>(this.apiUrlCualitativas+'/c_flujo/'+codFlujo)
       .pipe(
         //catchError(this.handleError('getFlujos', []))
       );
   }
+
+  getMenuCualitativasNandina(codFlujo:number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrlCualitativas+'/n_flujo/'+codFlujo)
+      .pipe(
+        //catchError(this.handleError('getFlujos', []))
+      );
+  }
+  
 
   getDepartamentos(): Observable<Departamento[]> {
     return this.http.get<Departamento[]>(this.apiUrlDepartamento)

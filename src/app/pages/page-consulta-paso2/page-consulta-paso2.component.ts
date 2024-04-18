@@ -33,6 +33,8 @@ export class PageConsultaPaso2Component {
   selectedCualitativas: any[] = [];
   selectedSubCualitativas: any[] = [];
   cualitativas: any[] = [];
+  cualitativasNandina: any[] = [];
+  selectedCualitativasNandina: any[] = [];
   departamentos: Departamento[] = [];
   selectedDepartamentos:Departamento[] = [];
   paises: Pais[] = [];
@@ -59,7 +61,7 @@ export class PageConsultaPaso2Component {
   ngOnInit() {
     this.paso1Informacion = this.ticketService.informacion.paso1Informacion;
     this.paso2Informacion = this.ticketService.informacion.paso2Informacion;
-    console.log('this.paso2Informacion',this.paso2Informacion);
+    console.log('this.paso2Informacion',this.paso2Informacion.selectedNandina);
     if(this.paso1Informacion.selectedFlujo){
       if(this.paso1Informacion.selectedFlujo){
         this.codFlujo = this.paso1Informacion.selectedFlujo.cod_flujo;
@@ -84,8 +86,21 @@ export class PageConsultaPaso2Component {
       }
     );
   }
+
+  getMenuCualitativasNandina(cod_flujo): void {
+    this.consultaPaso2Service.getMenuCualitativasNandina(cod_flujo).subscribe(
+      (cualitativasNandina) => {
+        this.cualitativasNandina = cualitativasNandina;
+      },
+      (error) => {
+        console.error('Error al obtener los cualitativas:', error);
+      }
+    );
+  }
+
   getServices(cod_flujo:number): void {
     if(cod_flujo==1){//export
+      this.getMenuCualitativasNandina(cod_flujo);
       this.getMenuCualitativas(cod_flujo);
       this.getDepartamentos();
       this.getContinentes();
@@ -93,6 +108,7 @@ export class PageConsultaPaso2Component {
       this.getMedios();
       this.getVias();
     }else if(cod_flujo==2){//reexport
+      this.getMenuCualitativasNandina(cod_flujo);
       this.getMenuCualitativas(cod_flujo);
       this.getDepartamentos();
       this.getContinentes();
@@ -100,6 +116,7 @@ export class PageConsultaPaso2Component {
       this.getMedios();
       this.getVias();
     }else if(cod_flujo==3){//import
+      this.getMenuCualitativasNandina(cod_flujo);
       this.getMenuCualitativas(cod_flujo);
       this.getDepartamentos();
       this.getContinentes();
@@ -108,6 +125,7 @@ export class PageConsultaPaso2Component {
       this.getVias();
       this.getAduanas();
     }else if(cod_flujo==4){//saldo
+      this.getMenuCualitativasNandina(cod_flujo);
       this.getMenuCualitativas(cod_flujo);
       this.getContinentes();
       this.getPaises();
@@ -222,11 +240,31 @@ export class PageConsultaPaso2Component {
 }
   showModal(subCualitativa:any): void {
     //this.cualitativasSub.data;
+
+    console.log('subCualitativa------',subCualitativa);
+
     this.displayModal = true;
     this.getCualitativasSub(subCualitativa.cod_sub)
   }
 
   onDialogHide(): void {
     this.displayModal = false;
+  }
+
+
+  onChangeFlujoNandina(cualitativa: any) {
+    //this.paso2Informacion.selectedCualitativasNandina = cualitativa;
+  }
+
+  showModalnandina(subCualitativa:any): void {
+    //this.cualitativasSub.data;
+    this.displayModal = true;
+    this.getCualitativasSub(subCualitativa.cod_sub)
+  }
+  
+  onChangeFlujo(cualitativa: any) {
+
+   // this.paso2Informacion.selectedClasificacion = cualitativa;
+   // this.selectedSubCualitativa = null; // Reset subCualitativa selection when cualitativa changes
   }
 }

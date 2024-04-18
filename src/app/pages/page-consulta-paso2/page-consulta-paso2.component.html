@@ -7,22 +7,42 @@
               <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
                    <!-- <h5>Seccion NANDIA</h5>-->
                     <div class="p-fluid p-formgrid grid">
+
+                      <div class="col-12">
+                        <div class="card">
+                          <h5>Clasificación NANDINA</h5>
+                          <div class="flex flex-column gap-2">
+                           
+                            <div *ngFor="let cualitativa of cualitativasNandina.cualitativas" class="field-checkbox">
+                              <p-checkbox (onChange)="onChangeFlujoNandina($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedNandina"></p-checkbox>
+                              <br>
+                          
+                              <div>
+                                <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
+                                    <div (click)="showModal(subCualitativa)">
+                                        <p-radioButton [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="selectedSubCualitativas"></p-radioButton>
+                                        <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
+                                    </div>
+                                  <br>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                           <div class="col-12">
                             <div class="card">
                               <h5>Clasificaciones</h5>
                               <div class="flex flex-column gap-2">
-                                <!-- Listar checkboxes -->
                                 <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
-                                  <p-checkbox [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="selectedCualitativas"></p-checkbox>
+                                  <p-checkbox (onChange)="onChangeFlujo($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedClasificacion"></p-checkbox>
                                   <br>
-                                  <!-- Anidar radio buttons dentro de los checkboxes -->
-                                  <div *ngIf="selectedCualitativas.includes(cualitativa)">
+                                  <div>
                                     <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
-                                        <div (click)="showModal(subCualitativa)">
-                                            <p-radioButton [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="selectedSubCualitativas"></p-radioButton>
+                                        <div>
+                                            <p-radioButton (click)="showModal(subCualitativa)" [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="selectedSubCualitativas"></p-radioButton>
                                             <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
                                         </div>
-                                     
                                       <br>
                                     </div>
                                   </div>

@@ -12,20 +12,20 @@
                     <div class="p-fluid p-formgrid grid">
                         <div class="field col-12 md:col-3">
                             <label htmlFor="address">Flujo de comercio exterior</label>
-                            <p-dropdown  [options]="flujos.flujos"  (onChange)="onChangeFlujo($event)" [(ngModel)]="paso1Information.selectedFlujo" optionLabel="des" [showClear]="true" placeholder="Seleccione flujo"></p-dropdown>
+                            <p-dropdown  [options]="flujos.flujos" required (onChange)="onChangeFlujo($event)" [(ngModel)]="paso1Information.selectedFlujo" optionLabel="des" [showClear]="true" placeholder="Seleccione flujo"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="city">Varables cuantitativas</label>
                             <!--<p-multiSelect [options]="cuantitativas" [(ngModel)]="selectedCuantitativas" formControlName="" optionLabel="des" placeholder="Seleccione v. cuantitativas"></p-multiSelect>-->
-                            <p-multiSelect [options]="cuantitativas" [(ngModel)]="paso1Information.selectedCuantitativas" optionLabel="des" placeholder="Seleccione v. cuantitativas"></p-multiSelect>
+                            <p-multiSelect [options]="cuantitativas"  required [(ngModel)]="paso1Information.selectedCuantitativas" optionLabel="des" placeholder="Seleccione v. cuantitativas"></p-multiSelect>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="state">Periodicidad</label>
-                            <p-dropdown [options]="periodicidad.periodicidad" [(ngModel)]="paso1Information.selectedPeriocidad" optionLabel="des" [showClear]="true" placeholder="Seleccione periodicidad"></p-dropdown>
+                            <p-dropdown [options]="periodicidad.periodicidad"  required [(ngModel)]="paso1Information.selectedPeriocidad" optionLabel="des" [showClear]="true" placeholder="Seleccione periodicidad"></p-dropdown>
                         </div>
                         <div class="field col-12 md:col-3">
                             <label htmlFor="zip">Año de referencia</label>
-                            <p-multiSelect [options]="gestiones.gestiones" [(ngModel)]="paso1Information.selectedGestiones" optionLabel="gestion" placeholder="Seleccione año(s)"></p-multiSelect>
+                            <p-multiSelect [options]="gestiones.gestiones" required [(ngModel)]="paso1Information.selectedGestiones" optionLabel="gestion" placeholder="Seleccione año(s)"></p-multiSelect>
                         </div>
                     </div>
                 </div>
