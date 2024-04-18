@@ -14,16 +14,16 @@ import { Subject } from 'rxjs';
                 selectedNandina: {
                     cod_clas : null,
                     des:null,
-                    selectedSubCualitativas:{
-                        cod_sub:null,
-                        des:null,
-                        sub_children:[]
-                    }
+                    
                 },
                 selectedClasificacion:  {
                     cod_clas : null,
                     des:null,
-                    selectedSubCualitativas:[]
+                },
+                selectedSubCualitativas:{
+                    cod_sub:null,
+                    des:null,
+                    sub_children:[]
                 },
                 selectedDepartamentos: [],
                 selectedContinentes: [],
@@ -53,6 +53,11 @@ import { Subject } from 'rxjs';
                 paso2Informacion: {
                     selectedNandina: null,
                     selectedClasificacion: null,
+                    selectedSubCualitativas:{
+                        cod_sub:null,
+                        des:null,
+                        sub_children:[]
+                    },
                     selectedDepartamentos: [],
                     selectedContinentes: [],
                     selectedPaises: [],
@@ -68,7 +73,7 @@ import { Subject } from 'rxjs';
             this.informacion.paso2Informacion.selectedClasificacion = {
                 cod_clas : null,
                 des:null,
-                selectedSubCualitativas:[]
+                //selectedSubCualitativas:[]
             };
             return this.informacion;
         }

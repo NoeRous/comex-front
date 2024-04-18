@@ -17,10 +17,10 @@
                               <p-checkbox (onChange)="onChangeFlujoNandina($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedNandina"></p-checkbox>
                               <br>
                           
-                              <div>
+                              <div  *ngIf="paso2Informacion.selectedNandina && paso2Informacion.selectedNandina.includes(cualitativa)">
                                 <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
                                     <div (click)="showModal(subCualitativa)">
-                                        <p-radioButton [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="selectedSubCualitativas"></p-radioButton>
+                                        <p-radioButton [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
                                         <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
                                     </div>
                                   <br>
@@ -37,10 +37,10 @@
                                 <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
                                   <p-checkbox (onChange)="onChangeFlujo($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedClasificacion"></p-checkbox>
                                   <br>
-                                  <div>
+                                  <div *ngIf="paso2Informacion.selectedClasificacion && paso2Informacion.selectedClasificacion.includes(cualitativa)">
                                     <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
                                         <div>
-                                            <p-radioButton (click)="showModal(subCualitativa)" [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="selectedSubCualitativas"></p-radioButton>
+                                            <p-radioButton (click)="showModal(subCualitativa)" [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
                                             <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
                                         </div>
                                       <br>

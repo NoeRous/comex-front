@@ -242,7 +242,7 @@ export class PageConsultaPaso2Component {
     //this.cualitativasSub.data;
 
     console.log('subCualitativa------',subCualitativa);
-
+    console.log('this.paso2Informacion.selectedSubCualitativas-----',this.paso2Informacion.selectedSubCualitativas);
     this.displayModal = true;
     this.getCualitativasSub(subCualitativa.cod_sub)
   }
