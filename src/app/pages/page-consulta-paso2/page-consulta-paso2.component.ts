@@ -30,28 +30,18 @@ import { TooltipModule } from 'primeng/tooltip';
 export class PageConsultaPaso2Component {
   paso1Informacion: any;
   paso2Informacion: any;
-
-  selectedCualitativas: any[] = [];
-  selectedSubCualitativas: any[] = [];
   cualitativas: any[] = [];
   cualitativasNandina: any[] = [];
-  selectedCualitativasNandina: any[] = [];
   departamentos: Departamento[] = [];
-  selectedDepartamentos:Departamento[] = [];
   paises: Pais[] = [];
-  selectedPaises:Pais[] = [];
   continentes: Continente[] = [];
-  selectedContinentes:Continente[] = [];
   medios: Medio[] = [];
-  selectedMedios:Medio[] = [];
   vias: Via[] = [];
-  selectedVias:Via[] = [];
   aduanas: Aduana[] = [];
-  selectedAduanas:Aduana[] = [];
   cualitativasSub: CualitativasSub;
-  selectedcualitativasSub:CualitativasSub[] = [];
   tipoRes:string;
   displayModal = false;
+  displayModalNandina = false;
   codFlujo:string;
   messages: Message[] | undefined;
   detailMesage1 = 'En el caso de Exportaciones, la información hasta el año 1999 corresponde al Departamento de Residencia del Exportador, consignado en la Declaración Unidad de Exportación (DUE). A partir del año 2000 los datos corresponden al Departamento de Origen del Producto exportado. En el caso de Importaciones, la información corresponde al Departamento según la aduana donde se realizó el trámite de nacionalización del producto importado.';
@@ -62,7 +52,7 @@ export class PageConsultaPaso2Component {
   ngOnInit() {
     this.paso1Informacion = this.informacionService.informacion.paso1Informacion;
     this.paso2Informacion = this.informacionService.informacion.paso2Informacion;
-    console.log('this.paso2Informacion',this.paso2Informacion.selectedNandina);
+    console.log('this.paso2Informacion',this.paso2Informacion);
     if(this.paso1Informacion.selectedFlujo){
       if(this.paso1Informacion.selectedFlujo){
         this.codFlujo = this.paso1Informacion.selectedFlujo.cod_flujo;
@@ -240,46 +230,46 @@ export class PageConsultaPaso2Component {
     return total;
 }
   showModal(subCualitativa:any): void {
-    //this.cualitativasSub.data;
-
-    console.log('subCualitativa------',subCualitativa);
-    console.log('this.paso2Informacion.selectedSubCualitativas-----',this.paso2Informacion.selectedSubCualitativas);
+    this.cualitativasSub = null;
     this.displayModal = true;
-
-
     this.getCualitativasSub(subCualitativa.cod_sub)
   }
-
   onDialogHide(): void {
     this.displayModal = false;
+    this.cualitativasSub = null;
+   // this.limpiarVariables('clasificaciones');
   }
-
-
-  onChangeFlujoNandina(cualitativa: any) {
-    
+  saveDatosClasificaciones(): void {
+    this.displayModal = false;
   }
-
-  showModalnandina(subCualitativa:any): void {
-    //this.cualitativasSub.data;
-    this.displayModal = true;
+  showModalNandina(subCualitativa:any): void {
+    this.displayModalNandina = true;
     this.getCualitativasSub(subCualitativa.cod_sub)
   }
+  onDialogHideNandina(): void {
+    this.displayModalNandina = false;
+    this.cualitativasSub = null;
+    //this.limpiarVariables('clasificacionNandina');
+  }
+  saveDatosClasificacionesNandina(): void {
+    this.displayModalNandina = false;
+  }
+  onChangeFlujoNandina(cualitativa: any) {
+  }
+
+
   
   onChangeFlujo(cualitativa: any) {
-    /*console.log('entra****** ', cualitativa)
-    this.paso2Informacion.selectedClasificacion = [];
-    this.paso2Informacion.selectedClasificacion.checked = cualitativa;*/
-   // this.paso2Informacion.selectedClasificacion = cualitativa;
-   // this.selectedSubCualitativa = null; // Reset subCualitativa selection when cualitativa changes
   }
   limpiarVariables(item:string) {
-
     if(item == 'clasificaciones'){
       this.paso2Informacion.selectedClasificacion = [];
       this.paso2Informacion.selectedSubCualitativas = {};
+      this.paso2Informacion.selectedSubNandinaDatos = [];
     }else if(item =='clasificacionNandina'){
       this.paso2Informacion.selectedNandina = [];
       this.paso2Informacion.selectedSubNandina = {};
+      this.paso2Informacion.selectedSubCualitativasDatos = [];
     }else if(item == 'otros'){
       this.paso2Informacion.selectedDepartamentos = [];
       this.paso2Informacion.selectedContinentes = [];

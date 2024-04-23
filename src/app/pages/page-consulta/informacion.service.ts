@@ -13,8 +13,12 @@ import { Subject } from 'rxjs';
             paso2Informacion: {
                 selectedNandina: [],
                 selectedSubNandina: {},
+                selectedSubNandinaDatos: [],
+
                 selectedClasificacion: {},
-                selectedSubCualitativas: {}, //--
+                selectedSubCualitativas: {},
+                selectedSubCualitativasDatos: [],
+
                 selectedDepartamentos: [],
                 selectedContinentes: [],
                 selectedPaises: [],
@@ -43,9 +47,13 @@ import { Subject } from 'rxjs';
                 },
                 paso2Informacion: {
                     selectedNandina: [],
-                    selectedSubNandina:{},
-                    selectedClasificacion:  {},
-                    selectedSubCualitativas:{}, //--
+                    selectedSubNandina: {},
+                    selectedSubNandinaDatos: [],
+
+                    selectedClasificacion: {},
+                    selectedSubCualitativas: {},
+                    selectedSubCualitativasDatos: [],
+                    
                     selectedDepartamentos: [],
                     selectedContinentes: [],
                     selectedPaises: [],
