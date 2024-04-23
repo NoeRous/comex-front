@@ -12,14 +12,9 @@ import { Subject } from 'rxjs';
             },
             paso2Informacion: {
                 selectedNandina: [],
-
-                selectedSubCualitativas:{}, //--
-                selectedSubNandina:{},
-
-                selectedClasificacion:  [],
-                
-
-
+                selectedSubNandina: {},
+                selectedClasificacion: {},
+                selectedSubCualitativas: {}, //--
                 selectedDepartamentos: [],
                 selectedContinentes: [],
                 selectedPaises: [],
@@ -48,9 +43,9 @@ import { Subject } from 'rxjs';
                 },
                 paso2Informacion: {
                     selectedNandina: [],
-                    selectedSubCualitativas:{}, //--
                     selectedSubNandina:{},
-                    selectedClasificacion:  [],
+                    selectedClasificacion:  {},
+                    selectedSubCualitativas:{}, //--
                     selectedDepartamentos: [],
                     selectedContinentes: [],
                     selectedPaises: [],

@@ -9,18 +9,20 @@
         <div class="p-fluid p-formgrid grid">
           <div class="col-12">
             <div class="card">
-              <h5>Clasificación NANDINA</h5>
+              <div class="flex flex-row gap-2">
+                <h5>Clasificación NANDINA</h5>
+                <p-button pTooltip="Limpiar Varables" (click)="limpiarVariables('clasificacionNandina')" icon="pi pi-eraser" [rounded]="true" [text]="true" severity="danger"></p-button>
+              </div>
               <div class="flex flex-column gap-2">
                 <div *ngFor="let cualitativa of cualitativasNandina.cualitativas">
                   <div class="field-checkbox">
                     <p-checkbox (onChange)="onChangeFlujoNandina($event)" [label]="cualitativa.des" name="group"
                       [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedNandina"></p-checkbox>
                   </div>
-                  <br>
-                  <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
+                  <div *ngFor="let subCualitativa of cualitativa.children">
                     <p-radioButton [inputId]="subCualitativa.des" name="subCualitativaNandina"
                       [value]="subCualitativa.cod_sub"
-                      [(ngModel)]="paso2Informacion.selectedSubNandina"></p-radioButton>
+                      [(ngModel)]="paso2Informacion.selectedSubNandina" class="ml-6"></p-radioButton>
                     <label [for]="subCualitativa.des" class="ml-2">{{ subCualitativa.des }}</label> <span
                       (click)="showModal(subCualitativa)"
                       style="cursor: pointer; font-weight: bold; color: rgb(80, 104, 240);"> (Clasificación)</span>
@@ -32,22 +34,26 @@
 
           <div class="col-12">
             <div class="card">
-              <h5>Clasificaciones</h5>
+              <div class="flex flex-row gap-2">
+                <h5>Clasificaciones</h5>
+                <p-button pTooltip="Limpiar Varables" (click)="limpiarVariables('clasificaciones')" icon="pi pi-eraser" [rounded]="true" [text]="true" severity="danger"></p-button>
+              </div>
               <div class="flex flex-column gap-2">
-                <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
+                <div *ngFor="let cualitativa of cualitativas.cualitativas">
                   <div class="field-checkbox">
-                    <p-checkbox (onChange)="onChangeFlujo($event)" [label]="cualitativa.des" name="group"
-                    [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedClasificacion"></p-checkbox>
+                    <p-radioButton [inputId]="cualitativa.des"
+                        name="cualitativas" [value]="cualitativa.cod_clas" [label]="cualitativa.des"
+                        [(ngModel)]="paso2Informacion.selectedClasificacion"></p-radioButton>
+                  </div>
+                  <div *ngFor="let subCualitativa of cualitativa.children" >
+                    <p-radioButton [inputId]="subCualitativa.des"
+                      name="subCualitativaClasificaciones" [value]="subCualitativa.cod_sub"
+                      [(ngModel)]="paso2Informacion.selectedSubCualitativas" class="ml-6"></p-radioButton>
+                    <label [for]="subCualitativa.des" class="ml-2">{{ subCualitativa.des }}</label><span
+                    (click)="showModal(subCualitativa)"
+                    style="cursor: pointer; font-weight: bold; color: rgb(80, 104, 240);"> (Clasificación)</span>
                   </div>
                   <br>
-                  <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
-                      <p-radioButton [inputId]="subCualitativa.des"
-                        name="subCualitativaClasificaciones" [value]="subCualitativa.cod_sub"
-                        [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
-                      <label [for]="subCualitativa.des" class="ml-2">{{ subCualitativa.des }}</label><span
-                      (click)="showModal(subCualitativa)"
-                      style="cursor: pointer; font-weight: bold; color: rgb(80, 104, 240);"> (Clasificación)</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -55,7 +61,10 @@
 
           <div class="col-12">
             <div class="card">
-              <h5>otros</h5>
+              <div class="flex flex-row gap-2">
+                <h5>Otros</h5>
+                <p-button pTooltip="Limpiar Varables" (click)="limpiarVariables('otros')" icon="pi pi-eraser" [rounded]="true" [text]="true" severity="danger"></p-button>
+              </div>
               <div class="p-fluid p-formgrid grid">
 
                 <div *ngIf="departamentos.departamentos" class="field col-12 md:col-4">

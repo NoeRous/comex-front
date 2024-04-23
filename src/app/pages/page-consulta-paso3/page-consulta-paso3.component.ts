@@ -20,10 +20,10 @@ export class PageConsultaPaso3Component {
   flujo:string;
   varCuantitativas:string;
 
-  constructor(private router: Router, private consultaPaso3Service:ConsultaPaso3Service,public ticketService: InformacionService) {}
+  constructor(private router: Router, private consultaPaso3Service:ConsultaPaso3Service,public informacionService: InformacionService) {}
 
   ngOnInit() {
-    this.informacion = this.ticketService.informacion;
+    this.informacion = this.informacionService.informacion;
     if(this.informacion.paso1Informacion.selectedFlujo && this.informacion.paso2Informacion ){
       console.log('informacion',this.informacion)
       this.flujo = this.informacion.paso1Informacion.selectedFlujo;
@@ -41,12 +41,12 @@ export class PageConsultaPaso3Component {
   }
   confirmationPage(): void {
     console.log('Aqui genera.........');
-    this.ticketService.complete();
+    this.informacionService.complete();
     this.router.navigate(['/consult/resultado']);
   }
 
   complete() {
-    this.ticketService.complete();
+    this.informacionService.complete();
     
   }
 

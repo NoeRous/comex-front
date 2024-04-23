@@ -19,7 +19,7 @@ export class PageConsultaComponent {
 
   subscription: Subscription;
 
-  constructor(public messageService: MessageService, public ticketService: InformacionService) {}
+  constructor(public messageService: MessageService, public informacionService: InformacionService) {}
 
   ngOnInit() {
       this.items = [
@@ -37,7 +37,7 @@ export class PageConsultaComponent {
           },
       ];
 
-      this.subscription = this.ticketService.informacionComplete$.subscribe((paso1Informacion) => {
+      this.subscription = this.informacionService.informacionComplete$.subscribe((paso1Informacion) => {
         this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + paso1Informacion.selectedFlujo.des + ' your order completed.' });
     });
   }

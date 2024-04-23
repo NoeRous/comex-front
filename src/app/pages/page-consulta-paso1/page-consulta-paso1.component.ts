@@ -38,10 +38,10 @@ export class PageConsultaPaso1Component {
   submitted: boolean = false;
 
 
-  constructor(public ticketService: InformacionService,private router: Router,private fb: FormBuilder, private consultaPaso1Service:ConsultaPaso1Service,private messageService: MessageService) {}
+  constructor(public informacionService: InformacionService,private router: Router,private fb: FormBuilder, private consultaPaso1Service:ConsultaPaso1Service,private messageService: MessageService) {}
 
   ngOnInit() {
-    this.paso1Information = this.ticketService.getInformacion().paso1Informacion;
+    this.paso1Information = this.informacionService.getInformacion().paso1Informacion;
     if(this.paso1Information.selectedFlujo){
       this.loadFlujo(this.paso1Information.selectedFlujo);
     }
@@ -105,8 +105,8 @@ export class PageConsultaPaso1Component {
   onChangeFlujo(item: any) {
    if(item.value){
       this.selectedCuantitativas = [];
-      this.ticketService.clearInformacion();
-      this.paso1Information = this.ticketService.getInformacion().paso1Informacion;
+      this.informacionService.clearInformacion();
+      this.paso1Information = this.informacionService.getInformacion().paso1Informacion;
       this.getVarCuantitativas(item.value.cod_flujo)
       
     }
@@ -121,7 +121,7 @@ export class PageConsultaPaso1Component {
 
   nextPage(): void {
     if (this.camposLlenos()) {
-      this.ticketService.informacion.paso1Informacion = this.paso1Information;
+      this.informacionService.informacion.paso1Informacion = this.paso1Information;
       this.router.navigate(['/consult/data/paso2']);
     } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No todos los campos están llenos. Por favor, complete todos los campos requeridos.' });
