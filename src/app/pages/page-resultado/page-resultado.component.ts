@@ -7,11 +7,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InformacionService } from '../page-consulta/informacion.service';
+import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @Component({
   selector: 'app-page-resultado',
   standalone: true,
-  imports: [ButtonModule],
+  imports: [ButtonModule,TabMenuModule],
   templateUrl: './page-resultado.component.html',
   styleUrl: './page-resultado.component.scss'
 })
@@ -19,6 +21,7 @@ export class PageResultadoComponent {
   private chart: am4charts.XYChart;
   informacion: any;
 
+  items: MenuItem[] | undefined;
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private router: Router, private informacionService:InformacionService) {}
 
   // Run the function only in the browser
@@ -32,6 +35,7 @@ export class PageResultadoComponent {
 
   ngOnInit() {
     this.informacion = this.informacionService.informacion;
+    console.log(' this.informacion', this.informacion)
     if(this.informacion.paso1Informacion.selectedFlujo && this.informacion.paso2Informacion ){
      /* console.log('informacion',this.informacion)
       this.flujo = this.informacion.paso1Informacion.selectedFlujo;
@@ -51,6 +55,11 @@ export class PageResultadoComponent {
     }else{
       this.prevPage();
     }
+
+    this.items = [
+      { label: 'Gráfico', icon: 'pi pi-fw pi-chart-bar' },
+      { label: 'Tabla', icon: 'pi pi-fw pi-table' },
+  ];
   }
 
   ngAfterViewInit() {

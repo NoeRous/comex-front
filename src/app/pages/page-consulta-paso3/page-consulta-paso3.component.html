@@ -3,90 +3,95 @@
         <ng-template pTemplate="title">Confirmación </ng-template>
         <ng-template pTemplate="subtitle"> Detalle de la consulta </ng-template>
         <ng-template pTemplate="content">
-            <div class="field col-12">
-                <h5>Flujo de Comercio Exterior</h5>
-                <b>{{ flujo ? flujo.des: '-' }}</b>
-            </div>
-            <div class="field col-12">
-                <h5>Variables Cuantitativas</h5>
-                <ng-container *ngFor="let varCuantitativa of varCuantitativas">
-                    <b>{{ varCuantitativa ? varCuantitativa.des : '-' }}</b>
-                    <br>
-                </ng-container>
-            </div>
-            
-            <div class="field col-12">
-                <h5>Variables Cualitativas</h5>
-                <div *ngIf="selectedPeriocidad">
-                    <label for="class">Periodicidad</label>
-                    <br>
-                    <b>{{ selectedPeriocidad ? selectedPeriocidad.des : '-' }}</b>
-                    <br>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-3">
+                    <h5>Flujo de Comercio Exterior</h5>
+                    <b>{{ flujo ? flujo.des: '-' }}</b>
                 </div>
-                <br>
-                <div *ngIf="selectedGestiones && selectedGestiones.length > 0">
-                    <label for="class"> Año de referencia</label>
-                    <br>
-                    <ng-container *ngFor="let selectedGestione of selectedGestiones">
-                        <b>{{ '['+selectedGestione.gestion+']  '}}</b>
+                <div class="field col-12 md:col-3">
+                    <h5>Variables Cuantitativas</h5>
+                    <ng-container *ngFor="let varCuantitativa of varCuantitativas">
+                        <b>{{ varCuantitativa ? varCuantitativa.des : '-' }}</b>
+                        <br>
                     </ng-container>
                 </div>
-                <br>
-                <div *ngIf="selectedNandina &&selectedNandina.length > 0">
-                    <ng-container *ngFor="let selectedNandina of selectedNandina">
-                        <b>{{ '['+selectedNandina.des+']  '}}</b>
-                    </ng-container>
-                </div>
-                <br>
-                <div *ngIf="selectedDepartamentos && selectedDepartamentos.length > 0">
-                    <label for="class"> Departatamento(s)</label>
+                <div class="field col-12 md:col-6">
+                    <h5>Variables Cualitativas</h5>
+                    <div *ngIf="selectedPeriocidad">
+                        <label for="class">Periodicidad</label>
+                        <br>
+                        <b>{{ selectedPeriocidad ? selectedPeriocidad.des : '-' }}</b>
+                        <br>
+                    </div>
                     <br>
-                    <ng-container *ngFor="let selectedDepartamento of selectedDepartamentos">
-                        <b>{{ '['+selectedDepartamento.des+']  '}}</b>
-                    </ng-container>
-                </div>
-                <br>
-                <div *ngIf="selectedContinentes && selectedContinentes.length > 0">
-                    <label for="class"> Continente(s)</label>
+                    <div *ngIf="selectedGestiones && selectedGestiones.length > 0">
+                        <label for="class"> Año de referencia</label>
+                        <br>
+                        <ng-container *ngFor="let selectedGestione of selectedGestiones">
+                            <b>{{ '['+selectedGestione.gestion+']  '}}</b>
+                        </ng-container>
+                    </div>
                     <br>
-                    <ng-container *ngFor="let selectedContinente of selectedContinentes">
-                        <b>{{ '['+selectedContinente.des+']  '}}</b>
-                    </ng-container>
+                    <div *ngIf="selectedNandina &&selectedNandina.length > 0">
+                        <ng-container *ngFor="let selectedNandina of selectedNandina">
+                            <b>{{ '['+selectedNandina.des+']  '}}</b>
+                        </ng-container>
+                    </div>
+                    <br>
+                    <div *ngIf="selectedDepartamentos && selectedDepartamentos.length > 0">
+                        <label for="class"> Departatamento(s)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedDepartamento of selectedDepartamentos">
+                            <b>{{ '['+selectedDepartamento.des+']  '}}</b>
+                        </ng-container>
+                    </div>
+                    <br>
+                    <div *ngIf="selectedContinentes && selectedContinentes.length > 0">
+                        <label for="class"> Continente(s)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedContinente of selectedContinentes">
+                            <b>{{ '['+selectedContinente.des_continente+']  '}}</b>
+                        </ng-container>
+                    </div>
+    
+                    <br>
+                    <div *ngIf="selectedPaises && selectedPaises.length > 0">
+                        <label for="class"> Pais(es)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedPaise of selectedPaises">
+                            <b>{{ '['+selectedPaise.des+']  '}}</b>
+                        </ng-container>
+                    </div>
+                    <br>
+                    <div *ngIf="selectedMedios && selectedMedios.length > 0">
+                        <label for="class"> Medio(s)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedMedio of selectedMedios">
+                            <b>{{ '['+selectedMedio.des+']  '}}</b>
+                        </ng-container>
+                    </div>
+                    <br>
+                    <div *ngIf="selectedVias && selectedVias.length > 0">
+                        <label for="class"> Via(s)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedVia of selectedVias">
+                            <b>{{ '['+selectedVia.des+']  '}}</b>
+                        </ng-container>
+                    </div>
+                    <br>
+                    <div *ngIf="selectedAduanas && selectedAduanas.length > 0">
+                        <label for="class"> Aduana(s)</label>
+                        <br>
+                        <ng-container *ngFor="let selectedAduana of selectedAduanas">
+                            <b>{{ '['+selectedAduana.des+']  '}}</b>
+                        </ng-container>
+                    </div>
                 </div>
 
-                <br>
-                <div *ngIf="selectedPaises && selectedPaises.length > 0">
-                    <label for="class"> Pais(es)</label>
-                    <br>
-                    <ng-container *ngFor="let selectedPaise of selectedPaises">
-                        <b>{{ '['+selectedPaise.des+']  '}}</b>
-                    </ng-container>
-                </div>
-                <br>
-                <div *ngIf="selectedMedios && selectedMedios.length > 0">
-                    <label for="class"> Medio(s)</label>
-                    <br>
-                    <ng-container *ngFor="let selectedMedio of selectedMedios">
-                        <b>{{ '['+selectedMedio.des+']  '}}</b>
-                    </ng-container>
-                </div>
-                <br>
-                <div *ngIf="selectedVias && selectedVias.length > 0">
-                    <label for="class"> Via(s)</label>
-                    <br>
-                    <ng-container *ngFor="let selectedVia of selectedVias">
-                        <b>{{ '['+selectedVia.des+']  '}}</b>
-                    </ng-container>
-                </div>
-                <br>
-                <div *ngIf="selectedAduanas && selectedAduanas.length > 0">
-                    <label for="class"> Aduana(s)</label>
-                    <br>
-                    <ng-container *ngFor="let selectedAduana of selectedAduanas">
-                        <b>{{ '['+selectedAduana.des+']  '}}</b>
-                    </ng-container>
-                </div>
             </div>
+           
+            
+           
         </ng-template> 
         <ng-template pTemplate="footer">
             <div class="grid grid-nogutter justify-content-between">
