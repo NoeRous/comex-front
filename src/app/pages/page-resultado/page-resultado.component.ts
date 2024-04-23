@@ -9,11 +9,15 @@ import { ButtonModule } from 'primeng/button';
 import { InformacionService } from '../page-consulta/informacion.service';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { CommonModule } from '@angular/common';
+
+import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
+import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 
 @Component({
   selector: 'app-page-resultado',
   standalone: true,
-  imports: [ButtonModule,TabMenuModule],
+  imports: [CommonModule,ButtonModule,TabMenuModule,AgGridAngular],
   templateUrl: './page-resultado.component.html',
   styleUrl: './page-resultado.component.scss'
 })
@@ -22,6 +26,26 @@ export class PageResultadoComponent {
   informacion: any;
 
   items: MenuItem[] | undefined;
+
+  rowData = [
+    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+    { make: "Ford", model: "F-Series", price: 33850, electric: false },
+    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+  ];
+ 
+  // Column Definitions: Defines the columns to be displayed.
+  colDefs: ColDef[] = [
+    { field: "make" },
+    { field: "model" },
+    { field: "price" },
+    { field: "electric" }
+  ];
+
+  selectedTab: string = 'chart'; // Inicialmente mostrando el gráfico
+  activeItem: MenuItem | undefined;
+
+ 
+
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private router: Router, private informacionService:InformacionService) {}
 
   // Run the function only in the browser
@@ -116,4 +140,13 @@ export class PageResultadoComponent {
     });
   }
 
+  onTabChange(event: any) {
+
+    console.log('event',event);
+    this.selectedTab = event.index === 0 ? 'chart' : 'table';
+  }
+
+  onActiveItemChange(event: MenuItem) {
+    this.activeItem = event;
+  }
 }
