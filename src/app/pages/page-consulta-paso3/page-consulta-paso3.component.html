@@ -4,14 +4,12 @@
         <ng-template pTemplate="subtitle"> Detalle de la consulta </ng-template>
         <ng-template pTemplate="content">
             <div class="field col-12">
-                <label for="class">Flujo de Comercio Exterior</label>
-                <br>
+                <h5>Flujo de Comercio Exterior</h5>
                 <b>{{ flujo ? flujo.des: '-' }}</b>
                
             </div>
             <div class="field col-12">
-                <label for="class">Variables Cuantitativas</label>
-                <br>
+                <h5>Variables Cuantitativas</h5>
                 <ng-container *ngFor="let varCuantitativa of varCuantitativas">
                     <b>{{ varCuantitativa ? varCuantitativa.des : '-' }}</b>
                     <br>
@@ -19,9 +17,78 @@
             </div>
             
             <div class="field col-12">
-                <label for="class">Variables Cualitativas</label>
+                <h5>Variables Cualitativas</h5>
+                <div *ngIf="selectedPeriocidad">
+                    <label for="class">Periodicidad</label>
+                    <br>
+                    <b>{{ selectedPeriocidad ? selectedPeriocidad.des : '-' }}</b>
+                    <br>
+                </div>
+                <br>
+                <div *ngIf="selectedGestiones">
+                    <label for="class"> Año de referencia</label>
+                    <br>
+                    <ng-container *ngFor="let selectedGestione of selectedGestiones">
+                        <b>{{ '['+selectedGestione.gestion+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedNandina">
+                    <ng-container *ngFor="let selectedNandina of selectedNandina">
+                        <b>{{ '['+selectedNandina.des+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedDepartamentos">
+                    <label for="class"> Departatamento(s)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedDepartamento of selectedDepartamentos">
+                        <b>{{ '['+selectedDepartamento.des+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedContinentes">
+                    <label for="class"> Continente(s)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedContinente of selectedContinentes">
+                        <b>{{ '['+selectedContinente.des+']  '}}</b>
+                    </ng-container>
+                </div>
+
+                <br>
+                <div *ngIf="selectedPaises">
+                    <label for="class"> Pais(es)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedPaise of selectedPaises">
+                        <b>{{ '['+selectedPaise.des+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedMedios">
+                    <label for="class"> Medio(s)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedMedio of selectedMedios">
+                        <b>{{ '['+selectedMedio.des+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedVias">
+                    <label for="class"> Via(s)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedVia of selectedVias">
+                        <b>{{ '['+selectedVia.des+']  '}}</b>
+                    </ng-container>
+                </div>
+                <br>
+                <div *ngIf="selectedAduanas">
+                    <label for="class"> Via(s)</label>
+                    <br>
+                    <ng-container *ngFor="let selectedAduana of selectedAduanas">
+                        <b>{{ '['+selectedAduana.des+']  '}}</b>
+                    </ng-container>
+                </div>
             </div>
-        </ng-template>
+        </ng-template> 
         <ng-template pTemplate="footer">
             <div class="grid grid-nogutter justify-content-between">
                 <p-button label="Anterior" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>

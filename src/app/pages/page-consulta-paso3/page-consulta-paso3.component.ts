@@ -17,8 +17,20 @@ import { CommonModule } from '@angular/common';
 export class PageConsultaPaso3Component {
   informacion: any;
 
-  flujo:string;
-  varCuantitativas:string;
+  flujo:{};
+  varCuantitativas:{};
+  selectedPeriocidad: {};
+  selectedGestiones: {};
+  selectedNandina:[];
+  selectedClasificacion:{}
+
+  selectedDepartamentos: []
+  selectedContinentes: []
+  selectedPaises: []
+  selectedMedios: []
+  selectedVias: []
+  selectedAduanas: []
+
 
   constructor(private router: Router, private consultaPaso3Service:ConsultaPaso3Service,public informacionService: InformacionService) {}
 
@@ -28,6 +40,17 @@ export class PageConsultaPaso3Component {
       console.log('informacion',this.informacion)
       this.flujo = this.informacion.paso1Informacion.selectedFlujo;
       this.varCuantitativas = this.informacion.paso1Informacion.selectedCuantitativas;
+      this.selectedPeriocidad =  this.informacion.paso1Informacion.selectedPeriocidad;
+      this.selectedGestiones =  this.informacion.paso1Informacion.selectedGestiones;
+      this.selectedNandina = this.informacion.paso2Informacion.selectedNandina;
+      this.selectedClasificacion = this.informacion.paso2Informacion.selectedClasificacion;
+
+      this.selectedDepartamentos = this.informacion.paso2Informacion.selectedDepartamentos;
+      this.selectedContinentes = this.informacion.paso2Informacion.selectedContinentes;
+      this.selectedPaises = this.informacion.paso2Informacion.selectedPaises;
+      this.selectedMedios = this.informacion.paso2Informacion.selectedMedios;
+      this.selectedVias = this.informacion.paso2Informacion.selectedVias;
+      this.selectedAduanas = this.informacion.paso2Informacion.selectedAduanas;
      
     }else{
       this.prevPage();
@@ -49,5 +72,30 @@ export class PageConsultaPaso3Component {
     this.informacionService.complete();
     
   }
+
+  /*this.informacion = {
+    paso1Informacion: {
+        selectedFlujo: this.informacion.paso1Informacion.selectedFlujo,
+        selectedCuantitativas: [],
+        selectedPeriocidad: null,
+        selectedGestiones: [],
+    },
+    paso2Informacion: {
+        selectedNandina: [],
+        selectedSubNandina: {},
+        selectedSubNandinaDatos: [],
+
+        selectedClasificacion: {},
+        selectedSubCualitativas: {},
+        selectedSubCualitativasDatos: [],
+        
+        selectedDepartamentos: [],
+        selectedContinentes: [],
+        selectedPaises: [],
+        selectedMedios: [],
+        selectedVias: [],
+        selectedAduanas: [],
+    }
+};*/
 
 }
