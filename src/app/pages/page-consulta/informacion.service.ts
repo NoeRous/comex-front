@@ -11,20 +11,15 @@ import { Subject } from 'rxjs';
                 selectedGestiones: [],
             },
             paso2Informacion: {
-                selectedNandina: {
-                    cod_clas : null,
-                    des:null,
-                    
-                },
-                selectedClasificacion:  {
-                    cod_clas : null,
-                    des:null,
-                },
-                selectedSubCualitativas:{
-                    cod_sub:null,
-                    des:null,
-                    sub_children:[]
-                },
+                selectedNandina: [],
+
+                selectedSubCualitativas:{}, //--
+                selectedSubNandina:{},
+
+                selectedClasificacion:  [],
+                
+
+
                 selectedDepartamentos: [],
                 selectedContinentes: [],
                 selectedPaises: [],
@@ -43,6 +38,7 @@ import { Subject } from 'rxjs';
         }
 
         clearInformacion() {
+            
             this.informacion = {
                 paso1Informacion: {
                     selectedFlujo: this.informacion.paso1Informacion.selectedFlujo,
@@ -51,13 +47,10 @@ import { Subject } from 'rxjs';
                     selectedGestiones: [],
                 },
                 paso2Informacion: {
-                    selectedNandina: null,
-                    selectedClasificacion: null,
-                    selectedSubCualitativas:{
-                        cod_sub:null,
-                        des:null,
-                        sub_children:[]
-                    },
+                    selectedNandina: [],
+                    selectedSubCualitativas:{}, //--
+                    selectedSubNandina:{},
+                    selectedClasificacion:  [],
                     selectedDepartamentos: [],
                     selectedContinentes: [],
                     selectedPaises: [],
@@ -67,14 +60,11 @@ import { Subject } from 'rxjs';
                 }
             };
             return this.informacion;
+            
         }
     
         clearInformacion2SelectedClasificacion() {
-            this.informacion.paso2Informacion.selectedClasificacion = {
-                cod_clas : null,
-                des:null,
-                //selectedSubCualitativas:[]
-            };
+            this.informacion.paso2Informacion.selectedClasificacion = [];
             return this.informacion;
         }
 

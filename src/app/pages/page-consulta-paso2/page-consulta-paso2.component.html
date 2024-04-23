@@ -1,227 +1,223 @@
 <div class="stepsdemo-content">
-    <p-card>
-        <ng-template pTemplate="title"> Paso 2 </ng-template>
-        <ng-template pTemplate="subtitle"> Elija los valores </ng-template>
-        <ng-template pTemplate="content">
-            <div class="col-12">
-              <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
-                   <!-- <h5>Seccion NANDIA</h5>-->
-                    <div class="p-fluid p-formgrid grid">
-
-                      <div class="col-12">
-                        <div class="card">
-                          <h5>Clasificación NANDINA</h5>
-                          <div class="flex flex-column gap-2">
-                           
-                            <div *ngFor="let cualitativa of cualitativasNandina.cualitativas" class="field-checkbox">
-                              <p-checkbox (onChange)="onChangeFlujoNandina($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedNandina"></p-checkbox>
-                              <br>
-                          
-                              <div  *ngIf="paso2Informacion.selectedNandina && paso2Informacion.selectedNandina.includes(cualitativa)">
-                                <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
-                                    <div (click)="showModal(subCualitativa)">
-                                        <p-radioButton [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
-                                        <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
-                                    </div>
-                                  <br>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                          <div class="col-12">
-                            <div class="card">
-                              <h5>Clasificaciones</h5>
-                              <div class="flex flex-column gap-2">
-                                <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
-                                  <p-checkbox (onChange)="onChangeFlujo($event)" [label]="cualitativa.des" name="group" [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedClasificacion"></p-checkbox>
-                                  <br>
-                                  <div *ngIf="paso2Informacion.selectedClasificacion && paso2Informacion.selectedClasificacion.includes(cualitativa)">
-                                    <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
-                                        <div>
-                                            <p-radioButton (click)="showModal(subCualitativa)" [inputId]="subCualitativa.des" name="subCualitativa" [value]="subCualitativa" [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
-                                            <label [for]="subCualitativa.des"  class="ml-2">{{ subCualitativa.des }}</label>
-                                        </div>
-                                      <br>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                         <div class="col-12">
-                            <div class="card">
-                                <h5>otros</h5>
-                                <div class="p-fluid p-formgrid grid">
-                               
-                                    <div *ngIf="departamentos.departamentos" class="field col-12 md:col-4">
-                                        <label htmlFor="address">Departamento</label>
-                                        <p-multiSelect display="chip" [options]="departamentos.departamentos" [(ngModel)]="paso2Informacion.selectedDepartamentos" optionLabel="des" placeholder="Seleccione departamento(s)"></p-multiSelect>
-                                    </div>
-                                    <div *ngIf="continentes.continentes"  class="field col-12 md:col-4">
-                                        <label htmlFor="city">Continente</label>
-                                        <p-multiSelect display="chip" [options]="continentes.continentes" [(ngModel)]="paso2Informacion.selectedContinentes" optionLabel="des_continente" placeholder="Seleccione continente(s) "></p-multiSelect>
-                                    </div>
-                                    <div class="field col-12 md:col-4">
-                                        <label htmlFor="state">País (Destino para Exportaciones)</label>
-                                        <p-multiSelect display="chip" [options]="paises.paises" [(ngModel)]="paso2Informacion.selectedPaises" optionLabel="des" placeholder="Seleccione el pais "></p-multiSelect>
-                                    </div>
-                                </div>
-                                <div class="p-fluid p-formgrid grid">
-                                  <div *ngIf="medios.medios" class="field col-12 md:col-4">
-                                      <label htmlFor="address">Medio de transporte </label>
-                                      <p-multiSelect display="chip" [options]="medios.medios" [(ngModel)]="paso2Informacion.selectedMedios" optionLabel="des" placeholder="Seleccione medio(s)"></p-multiSelect>
-                                  </div>
-                                  <div *ngIf="vias.vias" class="field col-12 md:col-4">
-                                      <label htmlFor="city">Via</label>
-                                      <p-multiSelect display="chip" [options]="vias.vias" [(ngModel)]="paso2Informacion.selectedVias" optionLabel="des" placeholder="Seleccione via(s) "></p-multiSelect>
-                                  </div>
-                                  <div *ngIf="aduanas.aduanas" class="field col-12 md:col-4">
-                                    <label htmlFor="city">Aduana de Ingreso</label>
-                                    <p-multiSelect display="chip" [options]="aduanas.aduanas" [(ngModel)]="paso2Informacion.selectedAduanas" optionLabel="des" placeholder="Seleccione aduana(s)"></p-multiSelect>
-                                </div>
-                              </div>
-                            </div>
-                        </div> 
-                    </div>
-               
-            </div>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="grid grid-nogutter justify-content-between">
-                <p-button label="Anterior" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                <p-button label="Siguiente" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
-            </div>
-        </ng-template>
-    </p-card>
-
-   
-
-</div>
-
-<div>
-    <p-dialog header="Datos de clasificaciones" [(visible)]="displayModal" [modal]="true" [responsive]="true" [maximizable]="true"[style]="{ width: '80vw', height: '700px' }" (onHide)="onDialogHide()">
-        <div class="card">
-          <p-table  *ngIf="tipoRes=='listado'" #dt1 [value]="cualitativasSub" [(selection)]="selectedcualitativasSub" dataKey="cod_niv1" [tableStyle]="{'min-width': '80rem'}"
-          [globalFilterFields]="['cod_niv1', 'des_niv1']"
-          >
-          <ng-template pTemplate="caption">
-              <div class="flex">
-                  <span class="p-input-icon-left ml-auto">
-                      <i class="pi pi-search"></i>
-                      <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda..." />
-                  </span>
+  <p-card>
+    <ng-template pTemplate="title"> Paso 2 </ng-template>
+    <ng-template pTemplate="subtitle"> Elija los valores </ng-template>
+    <ng-template pTemplate="content">
+      <div class="col-12">
+        <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+        <!-- <h5>Seccion NANDIA</h5>-->
+        <div class="p-fluid p-formgrid grid">
+          <div class="col-12">
+            <div class="card">
+              <h5>Clasificación NANDINA</h5>
+              <div class="flex flex-column gap-2">
+                <div *ngFor="let cualitativa of cualitativasNandina.cualitativas">
+                  <div class="field-checkbox">
+                    <p-checkbox (onChange)="onChangeFlujoNandina($event)" [label]="cualitativa.des" name="group"
+                      [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedNandina"></p-checkbox>
+                  </div>
+                  <br>
+                  <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
+                    <p-radioButton [inputId]="subCualitativa.des" name="subCualitativaNandina"
+                      [value]="subCualitativa.cod_sub"
+                      [(ngModel)]="paso2Informacion.selectedSubNandina"></p-radioButton>
+                    <label [for]="subCualitativa.des" class="ml-2">{{ subCualitativa.des }}</label> <span
+                      (click)="showModal(subCualitativa)"
+                      style="cursor: pointer; font-weight: bold; color: rgb(80, 104, 240);"> (Clasificación)</span>
+                  </div>
+                </div>
               </div>
-          </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 4rem">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                    </th>
-                    <th>Código</th>
-                    <th>Descripción</th>
-          
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-data>
-                <tr>
-                    <td>
-                        <p-tableCheckbox [value]="data"></p-tableCheckbox>
-                    </td>
-                    <td>{{data.cod_niv1}}</td>
-                    <td>{{data.des_niv1}}</td>
-        
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                  <td colspan="7">No customers found.</td>
-              </tr>
-          </ng-template>
-        </p-table>
-<!--Tipo de tabla 2-->
-        <p-table *ngIf="tipoRes!='listado'" 
-        #dt2
-        [value]="cualitativasSub" 
-        sortField="cod_niv1" 
-        sortMode="single" 
-        [scrollable]="false" 
-        scrollHeight="400px" 
-        rowGroupMode="subheader" 
-        groupRowsBy="cod_niv2" 
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="card">
+              <h5>Clasificaciones</h5>
+              <div class="flex flex-column gap-2">
+                <div *ngFor="let cualitativa of cualitativas.cualitativas" class="field-checkbox">
+                  <div class="field-checkbox">
+                    <p-checkbox (onChange)="onChangeFlujo($event)" [label]="cualitativa.des" name="group"
+                    [value]="cualitativa" [(ngModel)]="paso2Informacion.selectedClasificacion"></p-checkbox>
+                  </div>
+                  <br>
+                  <div *ngFor="let subCualitativa of cualitativa.children" class="field-checkbox">
+                      <p-radioButton [inputId]="subCualitativa.des"
+                        name="subCualitativaClasificaciones" [value]="subCualitativa.cod_sub"
+                        [(ngModel)]="paso2Informacion.selectedSubCualitativas"></p-radioButton>
+                      <label [for]="subCualitativa.des" class="ml-2">{{ subCualitativa.des }}</label><span
+                      (click)="showModal(subCualitativa)"
+                      style="cursor: pointer; font-weight: bold; color: rgb(80, 104, 240);"> (Clasificación)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="card">
+              <h5>otros</h5>
+              <div class="p-fluid p-formgrid grid">
+
+                <div *ngIf="departamentos.departamentos" class="field col-12 md:col-4">
+                  <label htmlFor="address">Departamento</label>
+                  <p-multiSelect display="chip" [options]="departamentos.departamentos"
+                    [(ngModel)]="paso2Informacion.selectedDepartamentos" optionLabel="des"
+                    placeholder="Seleccione departamento(s)"></p-multiSelect>
+                </div>
+                <div *ngIf="continentes.continentes" class="field col-12 md:col-4">
+                  <label htmlFor="city">Continente</label>
+                  <p-multiSelect display="chip" [options]="continentes.continentes"
+                    [(ngModel)]="paso2Informacion.selectedContinentes" optionLabel="des_continente"
+                    placeholder="Seleccione continente(s) "></p-multiSelect>
+                </div>
+                <div class="field col-12 md:col-4">
+                  <label htmlFor="state">País (Destino para Exportaciones)</label>
+                  <p-multiSelect display="chip" [options]="paises.paises" [(ngModel)]="paso2Informacion.selectedPaises"
+                    optionLabel="des" placeholder="Seleccione el pais "></p-multiSelect>
+                </div>
+              </div>
+              <div class="p-fluid p-formgrid grid">
+                <div *ngIf="medios.medios" class="field col-12 md:col-4">
+                  <label htmlFor="address">Medio de transporte </label>
+                  <p-multiSelect display="chip" [options]="medios.medios" [(ngModel)]="paso2Informacion.selectedMedios"
+                    optionLabel="des" placeholder="Seleccione medio(s)"></p-multiSelect>
+                </div>
+                <div *ngIf="vias.vias" class="field col-12 md:col-4">
+                  <label htmlFor="city">Via</label>
+                  <p-multiSelect display="chip" [options]="vias.vias" [(ngModel)]="paso2Informacion.selectedVias"
+                    optionLabel="des" placeholder="Seleccione via(s) "></p-multiSelect>
+                </div>
+                <div *ngIf="aduanas.aduanas" class="field col-12 md:col-4">
+                  <label htmlFor="city">Aduana de Ingreso</label>
+                  <p-multiSelect display="chip" [options]="aduanas.aduanas"
+                    [(ngModel)]="paso2Informacion.selectedAduanas" optionLabel="des"
+                    placeholder="Seleccione aduana(s)"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="grid grid-nogutter justify-content-between">
+        <p-button label="Anterior" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+        <p-button label="Siguiente" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>
+<div>
+  <p-dialog header="Datos de clasificaciones" [(visible)]="displayModal" [modal]="true" [responsive]="true"
+    [maximizable]="true" [style]="{ width: '80vw', height: '700px' }" (onHide)="onDialogHide()">
+    <div class="card">
+      <p-table *ngIf="tipoRes=='listado'" #dt1 [value]="cualitativasSub" [(selection)]="selectedcualitativasSub"
+        dataKey="cod_niv1" [tableStyle]="{'min-width': '80rem'}" [globalFilterFields]="['cod_niv1', 'des_niv1']">
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                placeholder="Busqueda..." />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th>Código</th>
+            <th>Descripción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="data"></p-tableCheckbox>
+            </td>
+            <td>{{data.cod_niv1}}</td>
+            <td>{{data.des_niv1}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!--Tipo de tabla 2-->
+      <p-table *ngIf="tipoRes!='listado'" #dt2 [value]="cualitativasSub" sortField="cod_niv1" sortMode="single"
+        [scrollable]="false" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="cod_niv2"
         [tableStyle]="{'min-width': '80rem'}"
         [globalFilterFields]="['des_niv4','des_niv3','des_niv2','cod_niv1', 'des_niv1']">
         <ng-template pTemplate="caption">
           <div class="flex">
             <span class="p-input-icon-left ml-auto">
               <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                (input)="dt2.filterGlobal($event.target.value, 'contains')"
-                placeholder="Busqueda..."
-              />
+              <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                placeholder="Busqueda..." />
             </span>
           </div>
         </ng-template>
-          <ng-template pTemplate="header">
-              <tr>
-                  <th></th>
-                  <th>Código</th>
-                  <th>Descripción</th>
-                 
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="groupheader" let-data>
-              <tr pRowGroupHeader>
-                  <td colspan="5">
-                    <!-- <img [alt]="data.cod_niv2" width="32" style="vertical-align: middle" />-->
-                      <span  *ngIf="tipoRes=='listadoAgrupado'" class="font-bold ml-2">{{data.des_niv2}}</span>
-                      <span *ngIf="tipoRes=='listadoAgrupadoDoble'" class="font-bold ml-2">
-                        <p>
-                          *{{data.des_niv3}}
-                          <br>
-                          **{{data.des_niv2}}
-                        </p>
-                      </span>
-                      <span *ngIf="tipoRes=='listadoAgrupadoTriple'" class="font-bold ml-2">
-                        <p>
-                          *{{data.des_niv4}}
-                          <br>
-                          **{{data.des_niv3}}
-                          <br>
-                          *** {{data.des_niv2}}
-                        </p>
-                      </span>
-                  </td>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="groupfooter" let-data>
-              <tr>
-                  <!--<td colspan="5" class="text-right font-bold pr-6">Total Customers: {{calculateCustomerTotal(data.cod_niv2)}}</td>-->
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
-              <tr>
-                  <td>
-                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
-                  </td>
-                  <td>
-                      {{data.cod_niv1}}
-                  </td>
-                  <td>
-                      {{data.des_niv1}}
-                  </td>
-              </tr>
-          </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>Código</th>
+            <th>Descripción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-data>
+          <tr pRowGroupHeader>
+            <td colspan="5">
+              <!-- <img [alt]="data.cod_niv2" width="32" style="vertical-align: middle" />-->
+              <span *ngIf="tipoRes=='listadoAgrupado'" class="font-bold ml-2">{{data.des_niv2}}</span>
+              <span *ngIf="tipoRes=='listadoAgrupadoDoble'" class="font-bold ml-2">
+                <p>
+                  *{{data.des_niv3}}
+                  <br>
+                  **{{data.des_niv2}}
+                </p>
+              </span>
+              <span *ngIf="tipoRes=='listadoAgrupadoTriple'" class="font-bold ml-2">
+                <p>
+                  *{{data.des_niv4}}
+                  <br>
+                  **{{data.des_niv3}}
+                  <br>
+                  *** {{data.des_niv2}}
+                </p>
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="groupfooter" let-data>
+          <tr>
+            <!--<td colspan="5" class="text-right font-bold pr-6">Total Customers: {{calculateCustomerTotal(data.cod_niv2)}}</td>-->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="data"></p-tableCheckbox>
+            </td>
+            <td>
+              {{data.cod_niv1}}
+            </td>
+            <td>
+              {{data.des_niv1}}
+            </td>
+          </tr>
+        </ng-template>
       </p-table>
-<!-- Fin Tipo de tabla 2-->
-          </div>
-          <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="onDialogHide()"></button>
-            <button pButton pRipple label="Seleccionar"  severity="success"  icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-          </ng-template>
-    </p-dialog>
+      <!-- Fin Tipo de tabla 2-->
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="onDialogHide()"></button>
+      <button pButton pRipple label="Seleccionar" severity="success" icon="pi pi-check" class="p-button-text"
+        (click)="saveProduct()"></button>
+    </ng-template>
+  </p-dialog>
 </div>
