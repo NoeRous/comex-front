@@ -64,38 +64,13 @@ export class PageConsultaPaso3Component {
   }
   confirmationPage(): void {
     console.log('Aqui genera.........');
-    this.informacionService.complete();
-    this.router.navigate(['/consult/resultado']);
+    //this.informacionService.complete();
+    this.router.navigate(['/consult/data/resultado']);
   }
 
   complete() {
     this.informacionService.complete();
     
   }
-
-  /*this.informacion = {
-    paso1Informacion: {
-        selectedFlujo: this.informacion.paso1Informacion.selectedFlujo,
-        selectedCuantitativas: [],
-        selectedPeriocidad: null,
-        selectedGestiones: [],
-    },
-    paso2Informacion: {
-        selectedNandina: [],
-        selectedSubNandina: {},
-        selectedSubNandinaDatos: [],
-
-        selectedClasificacion: {},
-        selectedSubCualitativas: {},
-        selectedSubCualitativasDatos: [],
-        
-        selectedDepartamentos: [],
-        selectedContinentes: [],
-        selectedPaises: [],
-        selectedMedios: [],
-        selectedVias: [],
-        selectedAduanas: [],
-    }
-};*/
 
 }

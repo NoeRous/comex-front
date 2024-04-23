@@ -32,9 +32,9 @@ import { PageResultadoComponent } from './pages/page-resultado/page-resultado.co
                         { path: 'paso1',component: PageConsultaPaso1Component },
                         { path: 'paso2',component: PageConsultaPaso2Component },
                         { path: 'paso3',component: PageConsultaPaso3Component },
+                        { path: 'resultado',component: PageResultadoComponent },
                         { path: '', redirectTo: 'paso1', pathMatch: 'full' },
                     ] },
-                    {path: 'resultado',component: PageResultadoComponent}
                 ]
             },
 

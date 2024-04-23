@@ -6,7 +6,6 @@
             <div class="field col-12">
                 <h5>Flujo de Comercio Exterior</h5>
                 <b>{{ flujo ? flujo.des: '-' }}</b>
-               
             </div>
             <div class="field col-12">
                 <h5>Variables Cuantitativas</h5>
@@ -25,7 +24,7 @@
                     <br>
                 </div>
                 <br>
-                <div *ngIf="selectedGestiones">
+                <div *ngIf="selectedGestiones && selectedGestiones.length > 0">
                     <label for="class"> Año de referencia</label>
                     <br>
                     <ng-container *ngFor="let selectedGestione of selectedGestiones">
@@ -33,13 +32,13 @@
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedNandina">
+                <div *ngIf="selectedNandina &&selectedNandina.length > 0">
                     <ng-container *ngFor="let selectedNandina of selectedNandina">
                         <b>{{ '['+selectedNandina.des+']  '}}</b>
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedDepartamentos">
+                <div *ngIf="selectedDepartamentos && selectedDepartamentos.length > 0">
                     <label for="class"> Departatamento(s)</label>
                     <br>
                     <ng-container *ngFor="let selectedDepartamento of selectedDepartamentos">
@@ -47,7 +46,7 @@
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedContinentes">
+                <div *ngIf="selectedContinentes && selectedContinentes.length > 0">
                     <label for="class"> Continente(s)</label>
                     <br>
                     <ng-container *ngFor="let selectedContinente of selectedContinentes">
@@ -56,7 +55,7 @@
                 </div>
 
                 <br>
-                <div *ngIf="selectedPaises">
+                <div *ngIf="selectedPaises && selectedPaises.length > 0">
                     <label for="class"> Pais(es)</label>
                     <br>
                     <ng-container *ngFor="let selectedPaise of selectedPaises">
@@ -64,7 +63,7 @@
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedMedios">
+                <div *ngIf="selectedMedios && selectedMedios.length > 0">
                     <label for="class"> Medio(s)</label>
                     <br>
                     <ng-container *ngFor="let selectedMedio of selectedMedios">
@@ -72,7 +71,7 @@
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedVias">
+                <div *ngIf="selectedVias && selectedVias.length > 0">
                     <label for="class"> Via(s)</label>
                     <br>
                     <ng-container *ngFor="let selectedVia of selectedVias">
@@ -80,8 +79,8 @@
                     </ng-container>
                 </div>
                 <br>
-                <div *ngIf="selectedAduanas">
-                    <label for="class"> Via(s)</label>
+                <div *ngIf="selectedAduanas && selectedAduanas.length > 0">
+                    <label for="class"> Aduana(s)</label>
                     <br>
                     <ng-container *ngFor="let selectedAduana of selectedAduanas">
                         <b>{{ '['+selectedAduana.des+']  '}}</b>

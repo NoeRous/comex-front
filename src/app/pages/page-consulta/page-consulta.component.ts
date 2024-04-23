@@ -35,6 +35,10 @@ export class PageConsultaComponent {
               label: 'Paso 3',
               routerLink: ['/consult/data/paso3']
           },
+          {
+            label: 'Resultado',
+            routerLink: ['/consult/data/resultado']
+          },
       ];
 
       this.subscription = this.informacionService.informacionComplete$.subscribe((paso1Informacion) => {

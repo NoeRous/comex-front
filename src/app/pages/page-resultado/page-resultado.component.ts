@@ -4,18 +4,22 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { InformacionService } from '../page-consulta/informacion.service';
 
 @Component({
   selector: 'app-page-resultado',
   standalone: true,
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './page-resultado.component.html',
   styleUrl: './page-resultado.component.scss'
 })
 export class PageResultadoComponent {
   private chart: am4charts.XYChart;
+  informacion: any;
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {}
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private router: Router, private informacionService:InformacionService) {}
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -23,6 +27,29 @@ export class PageResultadoComponent {
       this.zone.runOutsideAngular(() => {
         f();
       });
+    }
+  }
+
+  ngOnInit() {
+    this.informacion = this.informacionService.informacion;
+    if(this.informacion.paso1Informacion.selectedFlujo && this.informacion.paso2Informacion ){
+     /* console.log('informacion',this.informacion)
+      this.flujo = this.informacion.paso1Informacion.selectedFlujo;
+      this.varCuantitativas = this.informacion.paso1Informacion.selectedCuantitativas;
+      this.selectedPeriocidad =  this.informacion.paso1Informacion.selectedPeriocidad;
+      this.selectedGestiones =  this.informacion.paso1Informacion.selectedGestiones;
+      this.selectedNandina = this.informacion.paso2Informacion.selectedNandina;
+      this.selectedClasificacion = this.informacion.paso2Informacion.selectedClasificacion;
+
+      this.selectedDepartamentos = this.informacion.paso2Informacion.selectedDepartamentos;
+      this.selectedContinentes = this.informacion.paso2Informacion.selectedContinentes;
+      this.selectedPaises = this.informacion.paso2Informacion.selectedPaises;
+      this.selectedMedios = this.informacion.paso2Informacion.selectedMedios;
+      this.selectedVias = this.informacion.paso2Informacion.selectedVias;
+      this.selectedAduanas = this.informacion.paso2Informacion.selectedAduanas;*/
+     
+    }else{
+      this.prevPage();
     }
   }
 
@@ -65,6 +92,11 @@ export class PageResultadoComponent {
       this.chart = chart;
     });
   }
+
+  prevPage(): void {
+    console.log('Todos los campos están llenos. Pasando a la siguiente página...');
+    this.router.navigate(['/consult/data/paso3']);
+}
 
   ngOnDestroy() {
     // Clean up chart when the component is removed
