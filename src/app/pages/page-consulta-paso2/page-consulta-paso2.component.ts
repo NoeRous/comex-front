@@ -62,8 +62,8 @@ export class PageConsultaPaso2Component {
       this.prevPage();
     }
 
-    this.messages = [{ severity: 'info', summary: 'Departamento: ', detail: this.detailMesage1 },
-    { severity: 'info', summary: 'Clasificadores: ', detail: this.detailMesage2 }
+    this.messages = [{ severity: 'info', summary: 'Dep: ', detail: this.detailMesage1 },
+    { severity: 'info', summary: 'Clas: ', detail: this.detailMesage2 }
     ];
 }
 

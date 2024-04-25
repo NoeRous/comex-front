@@ -21,19 +21,18 @@
 
 <div class="grid">
     <div class="col-12">
-        <p-tabMenu [model]="items" (click)="onTabChange($event)"></p-tabMenu>
+        <p-tabMenu [model]="items" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
       
-        <div *ngIf="selectedTab === 'chart'">
+        <div *ngIf="selectedTab === 'Gráfico'">
             <div id="chartdiv" style="width: 100%; height: 500px"></div>
         </div>
-
-        <div *ngIf="selectedTab === 'table'">
+        <div *ngIf="selectedTab === 'Tabla'">
             <ag-grid-angular
                 class="ag-theme-quartz"
                 style="height: 500px;"
                 [rowData]="rowData"
                 [columnDefs]="colDefs">
-            </ag-grid-angular>
+        </ag-grid-angular>
         </div>
 
         <div class="grid grid-nogutter justify-content-between">

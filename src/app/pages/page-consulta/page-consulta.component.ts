@@ -24,15 +24,15 @@ export class PageConsultaComponent {
   ngOnInit() {
       this.items = [
           {
-              label: 'Paso 1',
+              label: 'Cuantitativas',
               routerLink: ['/consult/data/paso1']
           },
           {
-              label: 'Paso 2',
+              label: 'Cualitativas',
               routerLink: ['/consult/data/paso2']
           },
           {
-              label: 'Paso 3',
+              label: 'Resumen',
               routerLink: ['/consult/data/paso3']
           },
           {

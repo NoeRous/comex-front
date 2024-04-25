@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 
 import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import { ResultadoService } from './resultado.service';
+
 
 @Component({
   selector: 'app-page-resultado',
@@ -24,29 +26,20 @@ import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 export class PageResultadoComponent {
   private chart: am4charts.XYChart;
   informacion: any;
+  data:any;
 
   items: MenuItem[] | undefined;
 
-  rowData = [
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-  ];
+  rowData = [];
  
   // Column Definitions: Defines the columns to be displayed.
-  colDefs: ColDef[] = [
-    { field: "make" },
-    { field: "model" },
-    { field: "price" },
-    { field: "electric" }
-  ];
-
-  selectedTab: string = 'chart'; // Inicialmente mostrando el gráfico
+  colDefs: ColDef[] = [];
+  selectedTab: string = 'Gráfico'; // Inicialmente mostrando el gráfico
   activeItem: MenuItem | undefined;
 
  
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private router: Router, private informacionService:InformacionService) {}
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private router: Router, private informacionService:InformacionService, private resultadoService :ResultadoService) {}
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -58,24 +51,12 @@ export class PageResultadoComponent {
   }
 
   ngOnInit() {
+   
     this.informacion = this.informacionService.informacion;
     console.log(' this.informacion', this.informacion)
     if(this.informacion.paso1Informacion.selectedFlujo && this.informacion.paso2Informacion ){
-     /* console.log('informacion',this.informacion)
-      this.flujo = this.informacion.paso1Informacion.selectedFlujo;
-      this.varCuantitativas = this.informacion.paso1Informacion.selectedCuantitativas;
-      this.selectedPeriocidad =  this.informacion.paso1Informacion.selectedPeriocidad;
-      this.selectedGestiones =  this.informacion.paso1Informacion.selectedGestiones;
-      this.selectedNandina = this.informacion.paso2Informacion.selectedNandina;
-      this.selectedClasificacion = this.informacion.paso2Informacion.selectedClasificacion;
+      this.getResultado(this.informacion);
 
-      this.selectedDepartamentos = this.informacion.paso2Informacion.selectedDepartamentos;
-      this.selectedContinentes = this.informacion.paso2Informacion.selectedContinentes;
-      this.selectedPaises = this.informacion.paso2Informacion.selectedPaises;
-      this.selectedMedios = this.informacion.paso2Informacion.selectedMedios;
-      this.selectedVias = this.informacion.paso2Informacion.selectedVias;
-      this.selectedAduanas = this.informacion.paso2Informacion.selectedAduanas;*/
-     
     }else{
       this.prevPage();
     }
@@ -140,13 +121,25 @@ export class PageResultadoComponent {
     });
   }
 
-  onTabChange(event: any) {
-
-    console.log('event',event);
-    this.selectedTab = event.index === 0 ? 'chart' : 'table';
-  }
-
   onActiveItemChange(event: MenuItem) {
     this.activeItem = event;
+    if(this.activeItem.label === 'Gráfico')
+    this.selectedTab = 'Gráfico';
+    if(this.activeItem.label === 'Tabla')
+      this.selectedTab = 'Tabla';
+  }
+  /***metodo para enviar datos***/
+
+  getResultado(resultado:any): void {
+    this.resultadoService.getResultado(resultado).subscribe(
+      (resultado) => {
+        this.data = resultado;
+        this.colDefs = this.data.colDefs;
+        this.rowData = this.data.result;
+      },
+      (error) => {
+        console.error('Error al obtener los cualitativas:', error);
+      }
+    );
   }
 }
