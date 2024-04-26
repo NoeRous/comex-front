@@ -29,15 +29,14 @@
         <div *ngIf="selectedTab === 'Tabla'">
             <ag-grid-angular
                 class="ag-theme-quartz"
-                style="height: 500px;"
-                [rowData]="rowData"
+                style="height: 100px;"
+                [rowData]="rowDataTotal"
                 [columnDefs]="colDefs">
             </ag-grid-angular>
-
             <ag-grid-angular
                 class="ag-theme-quartz"
                 style="height: 500px;"
-                [rowData]="rowDataTotal"
+                [rowData]="rowData"
                 [columnDefs]="colDefs">
             </ag-grid-angular>
         </div>
