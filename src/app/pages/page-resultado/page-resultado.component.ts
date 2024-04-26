@@ -31,6 +31,7 @@ export class PageResultadoComponent {
   items: MenuItem[] | undefined;
 
   rowData = [];
+  rowDataTotal = [];
  
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [];
@@ -136,6 +137,7 @@ export class PageResultadoComponent {
         this.data = resultado;
         this.colDefs = this.data.colDefs;
         this.rowData = this.data.result;
+        this.rowDataTotal = this.data.resultTotales;
       },
       (error) => {
         console.error('Error al obtener los cualitativas:', error);
