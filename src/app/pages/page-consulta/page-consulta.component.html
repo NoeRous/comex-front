@@ -1,13 +1,43 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h4>Sistema de consulta</h4>
-            <p>This is your empty page template to start building beautiful applications.</p>
+            <div class="flex justify-content-between mb-5">
+                <h4>Sistema de consulta</h4>
+                <div>
+                    <!--<p-button (click)="showDialog()" severity="info" icon="pi pi-info-circle" label="Info"></p-button>-->
+                    <p-button (click)="showDialog()" icon="pi pi-info-circle" label="Info" [outlined]="true"
+                        severity="info"></p-button>
+                </div>
+            </div>
             <div class="card">
                 <p-steps [model]="items" [readonly]="true"></p-steps>
                 <router-outlet></router-outlet>
             </div>
         </div>
-        
+        <!--Modal de información-->
+        <p-dialog header="Información" [(visible)]="visible" [style]="{width: '50vw'}">
+            <p>
+                <li>Seleccione los parámetros en orden del Paso 1 al Paso 5.</li>
+                <li>Cuando seleccione las "Variables Cualitativas", necesita elegir las opciones de desagregación al
+                    interior de
+                    cada variable.
+                    <span
+                        style="background-color:#6366f1; width: 18px; height: 20px; display: inline-block; margin-right: 5px; border-radius: 50%;"></span>
+                    (Los elementos están seleccionados cuando se encuentran marcados)
+                </li>
+                <li>Después¸ de elegir todos los parámetros, puede visualizar la información de Comercio Exterior.</li>
+            </p>
+            <h5><b>Importante</b></h5>
+            Tome en cuenta las siguientes consideraciones:
+            <p>
+                <li>Las consultas sobre "Importación" pueden demorar en su respuesta por el volumen de datos</li>
+                <li>La exportación de las consultas de "Importación" en Excel, en muchos casos podrían ser incompletas
+                    debido a
+                    que el número de registros supera el límite de una hoja en Excel.</li>
+                <li>Cuando Ud. realiza la consulta de Saldo Comercial según País, la información de importaciones y
+                    exportaciones no incluye Efectos Personales</li>
+            </p>
+        </p-dialog>
+        <!-- Fin Modal de información-->
     </div>
 </div>

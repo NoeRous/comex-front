@@ -69,6 +69,8 @@ export class PageResultadoComponent {
     ];
   }
 
+  
+
 
 
   prevPage(): void {
@@ -88,8 +90,8 @@ export class PageResultadoComponent {
   onActiveItemChange(event: MenuItem) {
     this.activeItem = event;
     if (this.activeItem.label === 'Gráfico'){
-      this.selectedTab = 'Gráfico';
       this.grafico( this.rowData);
+      this.selectedTab = 'Gráfico'; 
     }
      
     if (this.activeItem.label === 'Tabla')
@@ -132,7 +134,7 @@ export class PageResultadoComponent {
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "gestion";
-        categoryAxis.title.text = "Local gestion offices";
+        categoryAxis.title.text = "cuantitativas";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 20;
   
@@ -143,7 +145,7 @@ export class PageResultadoComponent {
         var series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = "sum_e_kilbru";
         series.dataFields.categoryX = "gestion";
-        series.name = "sum_e_kilbru";
+        series.name = "Peso Bruto (Kg.)	";
         series.tooltipText = "{name}: [bold]{valueY}[/]";
         // This has no effect
         // series.stacked = true;
@@ -151,7 +153,7 @@ export class PageResultadoComponent {
         var series2 = chart.series.push(new am4charts.ColumnSeries());
         series2.dataFields.valueY = "sum_e_kilnet";
         series2.dataFields.categoryX = "gestion";
-        series2.name = "sum_e_kilnet";
+        series2.name = "Peso Neto (Kg.)";
         series2.tooltipText = "{name}: [bold]{valueY}[/]";
         // Do not try to stack on top of previous series
         // series2.stacked = true;
@@ -159,17 +161,19 @@ export class PageResultadoComponent {
         var series3 = chart.series.push(new am4charts.ColumnSeries());
         series3.dataFields.valueY = "sum_e_valor";
         series3.dataFields.categoryX = "gestion";
-        series3.name = "sum_e_valor";
+        series3.name = "Valor FOB ($us.)";
         series3.tooltipText = "{name}: [bold]{valueY}[/]";
-        series3.stacked = true;
+        //series3.stacked = true;
   
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
   
         // Add legend
         chart.legend = new am4charts.Legend();
+        //export
+        chart.exporting.menu = new am4core.ExportMenu();
       });
 
   }
-   
+  
 }
